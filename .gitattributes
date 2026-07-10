@@ -1,0 +1,11 @@
+# Normalize text files to LF. Windows autocrlf would otherwise store CRLF,
+# which is harmless to YAML/Python parsers but can bite shebangs and Linux CI.
+* text=auto eol=lf
+
+# Binaries — never touch.
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

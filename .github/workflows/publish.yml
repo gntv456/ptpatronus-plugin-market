@@ -1,0 +1,75 @@
+name: Publish Plugins
+
+# Repackage + re-sign ALL official plugins on a version tag, then regenerate the
+# market index. Triggered by:
+#   git tag v0.2.0 && git push origin v0.2.0
+# after bumping `version` in plugins/<id>/plugin.json. Requires repo secret
+# PTP_PLUGIN_MARKET_PRIVATE_KEY (the market Ed25519 seed).
+#
+# First release (v0.1.0) ships pre-signed archives committed to the repo, so this
+# workflow is only needed for upgrades. Each package is signed centrally with the
+# market key and tagged publisher.verified (self-attested UI signal; crypto trust
+# still comes solely from the Ed25519 signature vs the market public_key).
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Package + sign every official plugin
+        env:
+          PTP_PLUGIN_MARKET_PRIVATE_KEY: ${{ secrets.PTP_PLUGIN_MARKET_PRIVATE_KEY }}
+        run: |
+          set -eu
+          for d in plugins/*/; do
+            id=$(basename "$d")
+            echo "==> packaging $id"
+            # Drop stale archives for this id so the repo only carries the latest.
+            rm -f "archives/${id}-"*.zip
+            python tools/ptpatronus/pluginctl.py package "$d" \
+              --out-dir archives \
+              --json-out "packages/${id}.json" \
+              --private-key "$PTP_PLUGIN_MARKET_PRIVATE_KEY" \
+              --market plugin-market.json \
+              --market-name "PTPatronus Plugin Market" \
+              --publisher-id ptpatronus \
+              --publisher-name "PTPatronus Official" \
+              --publisher-website "https://ptang.top" \
+              --publisher-verified
+          done
+
+      - name: Regenerate + verify market index
+        env:
+          PTP_APP_VERSION: ${{ vars.PTP_APP_VERSION }}
+        run: |
+          python tools/ptpatronus/pluginctl.py market aggregate \
+            --packages-dir packages \
+            --out plugin-market.json \
+            --name "PTPatronus Plugin Market" \
+            --public-key keys/plugin-market.public.key \
+            --archives-dir archives
+
+      - name: Commit regenerated artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archives packages plugin-market.json
+          if git diff --cached --quiet; then
+            echo "no changes to commit"
+          else
+            git commit -m "chore: republish plugins for ${GITHUB_REF_NAME}"
+            git push
+          fi

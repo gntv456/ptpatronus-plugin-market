@@ -1,0 +1,10 @@
+# Market signing keys — the private key NEVER enters git (provision as CI secret).
+*.private.key
+keys/*.private.key
+
+# Python
+__pycache__/
+*.pyc
+
+# Local build output (CI regenerates archives/packages — these are committed, dist/ is not)
+dist/

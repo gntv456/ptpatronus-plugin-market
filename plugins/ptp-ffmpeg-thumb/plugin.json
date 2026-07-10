@@ -1,0 +1,54 @@
+{
+  "id": "ptp-ffmpeg-thumb",
+  "name": "FFmpeg缩略图",
+  "version": "0.1.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "定时扫描媒体库，为每个缺少缩略图的视频用 FFmpeg 截取一帧作为 <文件名>-thumb.jpg。需要宿主机已安装 ffmpeg。",
+  "license": "MIT",
+  "keywords": ["media", "ffmpeg", "thumbnail"],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": ["plugin.py"],
+    "health": "/health"
+  },
+  "permissions": ["log:write", "notice:write", "kv:read", "kv:write"],
+  "resource_access": {
+    "exec_binaries": ["ffmpeg"],
+    "fs_paths": ["用户配置的媒体库扫描路径"]
+  },
+  "events": [],
+  "actions": [
+    {
+      "name": "scan",
+      "label": "扫描生成缩略图",
+      "description": "后台扫描配置的媒体路径，为缺少 -thumb.jpg 的视频生成缩略图。立即返回，进度用 status 查询。"
+    },
+    {
+      "name": "status",
+      "label": "查询扫描状态",
+      "description": "返回后台扫描的运行状态与计数。"
+    }
+  ],
+  "config_schema": [
+    { "key": "scan_paths", "label": "扫描路径", "type": "textarea", "default": "", "help": "每行一个目录，递归扫描其中的视频文件。", "group": "扫描" },
+    { "key": "exclude_paths", "label": "排除路径", "type": "textarea", "default": "", "help": "每行一个要排除的目录关键字。", "group": "扫描" },
+    { "key": "timeline", "label": "截取时间点", "type": "text", "default": "00:03:01", "help": "HH:MM:SS 格式，视频内截取该时刻的一帧。", "group": "扫描" },
+    { "key": "overwrite", "label": "覆盖已有缩略图", "type": "switch", "default": false, "group": "扫描" },
+    { "key": "media_ext", "label": "视频扩展名", "type": "text", "default": ".mp4,.mkv,.avi,.ts,.mov,.wmv,.flv,.m4v,.rmvb,.mpg,.mpeg,.webm", "group": "扫描" },
+    { "key": "cron", "label": "定时表达式", "type": "text", "default": "", "help": "留空则不自动扫描，可在插件页手动触发 scan。示例：0 3 * * *（每天 3 点）。", "group": "调度" }
+  ],
+  "schedule": [
+    { "id": "scan", "label": "定时扫描生成缩略图", "action": "scan", "cron_config_key": "cron" }
+  ],
+  "contributes": {
+    "commands": [
+      { "id": "ptp-ffmpeg-thumb.scan", "label": "FFmpeg缩略图：立即扫描", "action": "scan" }
+    ],
+    "menus": [
+      { "location": "plugins/actions", "command": "ptp-ffmpeg-thumb.scan" }
+    ]
+  }
+}

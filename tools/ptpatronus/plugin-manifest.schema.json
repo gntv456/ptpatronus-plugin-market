@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ptpatronus.local/schemas/plugin-manifest.schema.json",
+  "title": "PTPatronus Plugin Manifest",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["id", "name", "version", "runtime", "entry"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{1,127}$"
+    },
+    "name": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1 },
+    "api_version": { "type": "string", "enum": ["1"] },
+    "app_version": { "type": "string" },
+    "host_capabilities": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "optional_host_capabilities": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{1,127}$" },
+          "version": { "type": "string" },
+          "optional": { "type": "boolean" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "author": { "type": "string" },
+    "description": { "type": "string" },
+    "homepage": { "type": "string" },
+    "repository": { "type": "string" },
+    "license": { "type": "string" },
+    "keywords": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "runtime": { "type": "string", "enum": ["external-http"] },
+    "entry": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "command": { "type": "string" },
+        "args": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "work_dir": { "type": "string" },
+        "base_url": { "type": "string" },
+        "health": { "type": "string" },
+        "shutdown": { "type": "string" }
+      },
+      "anyOf": [
+        { "required": ["command"] },
+        { "required": ["base_url"] }
+      ]
+    },
+    "permissions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^\\S+$"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "properties": {
+          "type": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "label"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1 },
+          "label": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "input_schema": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/configField" }
+          }
+        }
+      }
+    },
+    "config_schema": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/configField" }
+    },
+    "schedule": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "action", "cron"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string" },
+          "action": { "type": "string", "minLength": 1 },
+          "cron": { "type": "string" },
+          "cron_config_key": { "type": "string" },
+          "input": { "type": "object" }
+        }
+      }
+    },
+    "resource_access": {
+      "type": "object",
+      "description": "声明（非强制）插件会访问的目录/二进制/主机，安装时向管理员展示。",
+      "properties": {
+        "fs_paths": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "exec_binaries": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "net_hosts": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+      },
+      "additionalProperties": false
+    },
+    "requirements": {
+      "type": "array",
+      "description": "Python pip 需求行；安装时 pip install --target {插件目录}/.deps 并注入 PYTHONPATH。",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "contributes": {
+      "type": "object",
+      "properties": {
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "label"],
+            "properties": {
+              "id": { "type": "string" },
+              "label": { "type": "string" },
+              "description": { "type": "string" },              "action": { "type": "string" },
+              "icon": { "type": "string" }
+            }
+          }
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "title"],
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "location": { "type": "string" },
+              "path": { "type": "string" },
+              "icon": { "type": "string" }
+            }
+          }
+        },
+        "menus": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["location", "command"],
+            "properties": {
+              "location": { "type": "string" },
+              "command": { "type": "string" },
+              "group": { "type": "string" },
+              "when": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "configField": {
+      "type": "object",
+      "required": ["key", "label", "type"],
+      "properties": {
+        "key": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "type": {
+          "type": "string",
+          "enum": ["text", "textarea", "switch", "select", "number", "password", "multiselect"]
+        },
+        "required": { "type": "boolean" },
+        "default": {},
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string" },
+              "value": {}
+            }
+          }
+        },
+        "help": { "type": "string" },
+        "group": { "type": "string" },
+        "options_source": { "type": "string" }
+      }
+    }
+  }
+}

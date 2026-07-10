@@ -1,0 +1,132 @@
+{
+  "id": "ptp-library-scrape",
+  "name": "\u5a92\u4f53\u5e93\u522e\u524a",
+  "version": "0.1.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/ptp-library-scrape-0.1.0.zip",
+  "sha256": "0d565f673353f0a732ac689917fc7322422b20f5ec10ec10d068af9d07e0b6cb",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.schedule.cron",
+    "host.api.log.write",
+    "host.api.notice.write",
+    "host.api.kv.read",
+    "host.api.kv.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "\u5b9a\u65f6\u626b\u63cf\u5a92\u4f53\u5e93\u76ee\u5f55\uff0c\u8c03\u7528\u5bbf\u4e3b\u5a92\u4f53\u5143\u6570\u636e API\uff08\u590d\u7528 PTPatronus \u7684 TMDB/\u8c46\u74e3\u7b49\u6e90\uff09\u8865\u9f50 Kodi \u517c\u5bb9\u7684 movie.nfo/tvshow.nfo \u4e0e\u6d77\u62a5\u3002\u65e0\u9700\u81ea\u5907 TMDB Key\u3002",
+  "license": "MIT",
+  "keywords": [
+    "media",
+    "library",
+    "scrape",
+    "nfo"
+  ],
+  "permissions": [
+    "log:write",
+    "notice:write",
+    "kv:read",
+    "kv:write",
+    "media:search"
+  ],
+  "actions": [
+    {
+      "name": "scrape",
+      "label": "\u626b\u63cf\u522e\u524a\u5a92\u4f53\u5e93",
+      "description": "\u540e\u53f0\u626b\u63cf\u914d\u7f6e\u76ee\u5f55\uff0c\u8865\u9f50 nfo \u4e0e\u6d77\u62a5\u3002\u7acb\u5373\u8fd4\u56de\uff0c\u8fdb\u5ea6\u7528 status \u67e5\u8be2\u3002"
+    },
+    {
+      "name": "status",
+      "label": "\u67e5\u8be2\u522e\u524a\u72b6\u6001",
+      "description": "\u8fd4\u56de\u540e\u53f0\u522e\u524a\u7684\u8fd0\u884c\u72b6\u6001\u4e0e\u8ba1\u6570\u3002"
+    },
+    {
+      "name": "search_one",
+      "label": "\u9884\u89c8\u68c0\u7d22",
+      "description": "input.name \u6307\u5b9a\u540d\u79f0\uff0c\u8fd4\u56de\u5bbf\u4e3b\u5a92\u4f53 API \u7684\u68c0\u7d22\u7ed3\u679c\uff08\u4e0d\u5199\u76d8\uff09\u3002"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "scraper_paths",
+      "label": "\u522e\u524a\u8def\u5f84",
+      "type": "textarea",
+      "default": "",
+      "help": "\u6bcf\u884c\u4e00\u4e2a\u76ee\u5f55\uff1b\u53ef\u52a0 #TV \u6216 #MOVIE \u540e\u7f00\u5f3a\u5236\u7c7b\u578b\uff0c\u5426\u5219\u6309\u76ee\u5f55\u7ed3\u6784\u63a8\u65ad\u3002",
+      "group": "\u626b\u63cf"
+    },
+    {
+      "key": "exclude_paths",
+      "label": "\u6392\u9664\u8def\u5f84",
+      "type": "textarea",
+      "default": "",
+      "help": "\u6bcf\u884c\u4e00\u4e2a\u8981\u6392\u9664\u7684\u76ee\u5f55\u5173\u952e\u5b57\u3002",
+      "group": "\u626b\u63cf"
+    },
+    {
+      "key": "mode",
+      "label": "\u8986\u76d6\u6a21\u5f0f",
+      "type": "select",
+      "default": "skip",
+      "options": [
+        {
+          "label": "\u8df3\u8fc7\u5df2\u6709 nfo",
+          "value": "skip"
+        },
+        {
+          "label": "\u5f3a\u5236\u8986\u76d6",
+          "value": "force"
+        }
+      ],
+      "group": "\u626b\u63cf"
+    },
+    {
+      "key": "media_ext",
+      "label": "\u89c6\u9891\u6269\u5c55\u540d",
+      "type": "text",
+      "default": ".mp4,.mkv,.avi,.ts,.mov,.wmv,.flv,.m4v,.rmvb,.mpg,.mpeg,.webm",
+      "group": "\u626b\u63cf"
+    },
+    {
+      "key": "cron",
+      "label": "\u5b9a\u65f6\u8868\u8fbe\u5f0f",
+      "type": "text",
+      "default": "",
+      "help": "\u7559\u7a7a\u5219\u4e0d\u81ea\u52a8\u626b\u63cf\uff0c\u53ef\u624b\u52a8\u89e6\u53d1\u3002\u793a\u4f8b\uff1a0 0 */7 * *\uff08\u6bcf 7 \u5929\uff09\u3002",
+      "group": "\u8c03\u5ea6"
+    }
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "ptp-library-scrape.scrape",
+        "label": "\u5a92\u4f53\u5e93\u522e\u524a\uff1a\u7acb\u5373\u626b\u63cf",
+        "action": "scrape"
+      }
+    ],
+    "menus": [
+      {
+        "location": "plugins/actions",
+        "command": "ptp-library-scrape.scrape"
+      }
+    ]
+  },
+  "resource_access": {
+    "fs_paths": [
+      "\u7528\u6237\u914d\u7f6e\u7684\u5a92\u4f53\u5e93\u522e\u524a\u8def\u5f84"
+    ],
+    "net_hosts": [
+      "\u7ecf\u5bbf\u4e3b\u5a92\u4f53 API \u95f4\u63a5\u8bbf\u95ee TMDB/\u8c46\u74e3\u7b49\uff08\u63d2\u4ef6\u81ea\u8eab\u4e0d\u51fa\u7ad9\uff09"
+    ]
+  },
+  "signature": "MJxPuYxzOG+rkaJuikNnAwpgt4vRXJvtgrfUgCFRACy9Ggy+Wujrz7bmTHPPwo+CYL+nu02DAabkL/+A49ALCQ==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "published_at": "2026-07-10T01:54:20Z"
+}

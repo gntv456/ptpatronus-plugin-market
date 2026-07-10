@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CloudDrive2</title>
+    <style>
+      :root { color-scheme: light dark; font-family: Inter, system-ui, sans-serif; }
+      body { margin: 0; padding: 16px; background: #0f172a; color: #e2e8f0; }
+      h2 { margin: 0 0 12px; font-size: 18px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+      .card { background: rgba(30,41,59,.9); border: 1px solid rgba(148,163,184,.2); border-radius: 10px; padding: 14px; }
+      .name { font-weight: 700; margin-bottom: 8px; display: flex; justify-content: space-between; gap: 8px; }
+      .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; }
+      .ok { background: #064e3b; color: #6ee7b7; }
+      .degraded { background: #7c2d12; color: #fdba74; }
+      .row { display: flex; justify-content: space-between; font-size: 13px; color: #cbd5e1; margin: 3px 0; }
+      .err { color: #fca5a5; font-size: 12px; margin-top: 6px; }
+      .muted { color: #64748b; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <h2>CloudDrive2 助手 <span class="muted" id="ts"></span></h2>
+    <div id="root" class="muted">连接宿主中…</div>
+    <script>
+      function fmt(v) { return v == null || v === '' ? '-' : String(v); }
+      async function tick() {
+        var root = document.getElementById('root');
+        var ts = document.getElementById('ts');
+        ts.textContent = new Date().toLocaleTimeString();
+        try {
+          if (!window.PTPatronus || !window.PTPatronus.action) {
+            root.textContent = '宿主桥接不可用（需 PTPatronus.action 支持）'; return;
+          }
+          var res = await window.PTPatronus.action('info');
+          var out = res && res.output ? res.output : res;
+          var insts = (out && out.instances) || [];
+          if (!insts.length) { root.textContent = '未配置实例（在插件设置里填写 name#url#user#pass）'; return; }
+          root.className = 'grid';
+          root.innerHTML = insts.map(function (it) {
+            var r = it.running || {}, t = it.tasks || {}, s = it.space || {};
+            var statusClass = it.status === 'ok' ? 'ok' : 'degraded';
+            var statusText = it.status === 'ok' ? '正常' : '降级';
+            var body = it.error
+              ? '<div class="err">' + it.error + '</div>'
+              : '<div class="row"><span>CPU</span><span>' + fmt(r.cpu) + '</span></div>' +
+                '<div class="row"><span>内存</span><span>' + fmt(r.mem) + '</span></div>' +
+                '<div class="row"><span>运行时长</span><span>' + fmt(r.uptime) + '</span></div>' +
+                '<div class="row"><span>上传/下载任务</span><span>' + fmt(t.upload_tasks) + ' / ' + fmt(t.download_tasks) + '</span></div>' +
+                '<div class="row"><span>容量 已用/总</span><span>' + fmt(s.used) + ' / ' + fmt(s.total) + '</span></div>';
+            return '<div class="card"><div class="name"><span>' + it.name + '</span>' +
+              '<span class="badge ' + statusClass + '">' + statusText + '</span></div>' + body + '</div>';
+          }).join('');
+        } catch (e) {
+          root.className = 'muted';
+          root.textContent = '加载失败：' + (e && e.message ? e.message : e);
+        }
+      }
+      tick();
+      setInterval(tick, 10000);
+    </script>
+  </body>
+</html>

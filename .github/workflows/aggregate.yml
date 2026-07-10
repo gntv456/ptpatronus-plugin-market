@@ -1,0 +1,54 @@
+name: Aggregate Plugin Market
+
+# Regenerate plugin-market.json whenever signed package metadata under packages/
+# changes (e.g. a third-party PR drops in a package.json). Metadata-only merge:
+# trusts each package.json's existing signature + sha256, and verifies them
+# against archives/ via --archives-dir (signature gate — CI fails on bad sig).
+#
+# archive refs stay RELATIVE ("archives/<id>-<ver>.zip") on purpose: PTPatronus
+# resolves them against the market's raw URL at install time (market.go
+# resolveArchiveSource), so NO --release-base rewrite and NO host change.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/**'
+      - 'keys/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  aggregate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Aggregate + verify signatures
+        env:
+          PTP_APP_VERSION: ${{ vars.PTP_APP_VERSION }}
+        run: |
+          python tools/ptpatronus/pluginctl.py market aggregate \
+            --packages-dir packages \
+            --out plugin-market.json \
+            --name "PTPatronus Plugin Market" \
+            --public-key keys/plugin-market.public.key \
+            --archives-dir archives
+
+      - name: Commit regenerated index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- plugin-market.json; then
+            echo "plugin-market.json is up to date"
+          else
+            git add plugin-market.json
+            git commit -m "chore: regenerate plugin-market.json"
+            git push
+          fi

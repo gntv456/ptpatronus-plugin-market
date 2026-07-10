@@ -1,0 +1,50 @@
+{
+  "id": "ptp-cd2-assistant",
+  "name": "CloudDrive2助手",
+  "version": "0.1.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "定时检查 CloudDrive2 实例：探测上传任务错误/账号失效并通知；提供重启、查看系统信息、提交离线下载等动作，并在插件视图页用仪表盘展示 CPU/内存/任务/速度/容量。依赖 clouddrive 包（安装时自动 pip 装）。",
+  "license": "MIT",
+  "keywords": ["clouddrive", "cd2", "monitor"],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": ["plugin.py"],
+    "health": "/health"
+  },
+  "permissions": ["log:write", "notice:write", "kv:read", "kv:write"],
+  "events": [],
+  "actions": [
+    { "name": "check", "label": "定时检查", "description": "后台遍历配置的 CloudDrive2 实例，检测上传错误/账号失效并按需通知。立即返回，进度用 status 查询。" },
+    { "name": "status", "label": "查询检查状态", "description": "返回后台检查的运行状态与计数。" },
+    { "name": "info", "label": "实例信息", "description": "返回所有实例的系统信息/任务/速度/容量，供仪表盘渲染。" },
+    { "name": "restart", "label": "重启实例", "description": "input.name 指定实例名（空=全部），重启其 CloudDrive2 服务。" },
+    { "name": "add_offline", "label": "提交离线下载", "description": "input.name 实例名 + input.urls 链接数组 + input.folder 目标云盘目录。" }
+  ],
+  "config_schema": [
+    { "key": "cd2_confs", "label": "CloudDrive2 实例", "type": "textarea", "default": "", "help": "每行一个：name#url#username#password（url 形如 http://host:19798）。", "group": "实例" },
+    { "key": "notify", "label": "发现异常时通知", "type": "switch", "default": true, "group": "检查" },
+    { "key": "keyword", "label": "错误关键字", "type": "text", "default": "账号异常", "help": "上传任务结果含此关键字视为账号失效。", "group": "检查" },
+    { "key": "cron", "label": "定时表达式", "type": "text", "default": "", "help": "留空则不自动检查，可手动触发。示例：*/10 * * * *。", "group": "调度" }
+  ],
+  "schedule": [
+    { "id": "check", "label": "定时检查 CloudDrive2", "action": "check", "cron_config_key": "cron" }
+  ],
+  "requirements": ["clouddrive"],
+  "resource_access": {
+    "net_hosts": ["用户配置的 CloudDrive2 实例（gRPC）"]
+  },
+  "contributes": {
+    "commands": [
+      { "id": "ptp-cd2-assistant.check", "label": "CloudDrive2：立即检查", "action": "check" }
+    ],
+    "views": [
+      { "id": "dashboard", "title": "CloudDrive2", "location": "plugins", "path": "index.html" }
+    ],
+    "menus": [
+      { "location": "plugins/actions", "command": "ptp-cd2-assistant.check" }
+    ]
+  }
+}
