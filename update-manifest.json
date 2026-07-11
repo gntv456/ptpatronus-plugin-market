@@ -1,0 +1,36 @@
+{
+  "latestVersion": "0.86.00",
+  "minVersion": "0.60.00",
+  "releaseName": "0.86.00：短剧插件 builtin + 文件存储本机后端",
+  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）: https://wwazg.lanzoub.com/b03anmtyxg\n\n本次更新：\n- 短剧刮削/自动分类移植为 Go builtin（前端「已安装」直接出现，不再依赖市场）\n- 文件管理加「本机」存储后端\n- monitor 设备表单增强 + sysinfo 平台拆分\n- 寸光集 API Key 改用户必填（不再预置测试 Key）",
+  "isForced": false,
+  "targets": {
+    "docker": {
+      "image": "ghcr.io/gntv456/pt-patronus:0.86.00",
+      "instructions": "docker compose pull && docker compose up -d"
+    },
+    "android": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": "27102c2e8e8db4176c83f72442188a17734b212482475730f6fe4e7de274c05a"
+    },
+    "ios": {
+      "url": "https://<AltSource.json 公开URL>"
+    },
+    "macos": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": ""
+    },
+    "windows": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": "5933657508ac064335916f2118165d3edd2ad9707d24e9df9611c1f8b787338f"
+    },
+    "agent-linux-amd64": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": "e45cee1629cccb63fc1f6d17ea6db37d1e16b1a0fbecbb288dddf9d7d58d138b"
+    },
+    "agent-linux-arm64": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": "8cde03052a59976711474b68318ae90e6cdf0c23cf9ea5968ae7a444eb207892"
+    }
+  }
+}
