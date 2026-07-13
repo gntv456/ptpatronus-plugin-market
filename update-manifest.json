@@ -11,7 +11,7 @@
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "27102c2e8e8db4176c83f72442188a17734b212482475730f6fe4e7de274c05a"
+      "sha256": "fed4207eb07bc2662b8863c50e60bec2e61129bf45fb47a9d616f10793076996"
     },
     "ios": {
       "url": "https://<AltSource.json 公开URL>"
@@ -22,15 +22,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "5933657508ac064335916f2118165d3edd2ad9707d24e9df9611c1f8b787338f"
+      "sha256": "2b34b60b1f295d5bcb1358ee31c4ab83886cf77c8d71241695757b04007b1dd0"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "e45cee1629cccb63fc1f6d17ea6db37d1e16b1a0fbecbb288dddf9d7d58d138b"
+      "sha256": "d4a5bfd63ef7818ee47aeb793f08201e03f79ac452c1b38466c8526e4c2d5b0a"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "8cde03052a59976711474b68318ae90e6cdf0c23cf9ea5968ae7a444eb207892"
+      "sha256": "199ebf4b9615bc80640da31fe4803fbcdb6b2f931b657c8fd9520c61c5719c43"
     }
   }
 }
