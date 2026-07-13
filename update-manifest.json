@@ -1,12 +1,12 @@
 {
-  "latestVersion": "0.86.00",
+  "latestVersion": "0.88.00",
   "minVersion": "0.60.00",
-  "releaseName": "0.86.00：短剧插件 builtin + 文件存储本机后端",
-  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）: https://wwazg.lanzoub.com/b03anmtyxg\n\n本次更新：\n- 短剧刮削/自动分类移植为 Go builtin（前端「已安装」直接出现，不再依赖市场）\n- 文件管理加「本机」存储后端\n- monitor 设备表单增强 + sysinfo 平台拆分\n- 寸光集 API Key 改用户必填（不再预置测试 Key）",
+  "releaseName": "0.88.00：测试审计修复（5×P1 + 26×P2）",
+  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）: https://wwazg.lanzoub.com/b03anmtyxg。本次为测试审计修复版本。P1：AI Agent 断开即停防持续计费、LLM 网关并发限流(MaxConcurrency+ModelAllowed)、16 个通知渠道接入 SSRF 防护、通知失败日志脱敏(剔除 URL 中 token)、红包金额校验。P2：token 常量时间比较、9 渠道业务错误码检查、qq 防 XSS、娱乐下注/连抽上限、chain 错误日志补全、monitor 级联事务化、OMDb 错误区分等共 26 项。全量 go build/test/vet 三绿。注：docker 镜像由 CI 构建后即可 pull；客户端各平台二进制 sha256 待新版本上传后更新（targets 暂保留上一版校验值）。",
   "isForced": false,
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:0.86.00",
+      "image": "ghcr.io/gntv456/pt-patronus:0.88.00",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
