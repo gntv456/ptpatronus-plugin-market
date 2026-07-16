@@ -1,17 +1,18 @@
 {
-  "latestVersion": "0.89.00",
+  "latestVersion": "0.89.01",
   "minVersion": "0.60.00",
-  "releaseName": "0.89.00：AI 助手加固 + 保种契约 5 维 + 论坛适配",
-  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）: https://wwazg.lanzoub.com/b03anmtyxg。本次 0.89.00 主要更新：① AI 助手加固四项——危险操作二次确认（删种子/文件/订阅/工作流等执行前需用户确认）、工具白名单按 read/write/危险分组最小授权、Provider 429/5xx 自动重试退避 + 按模型 Token 窗口裁剪上下文、用量统计（Token/费用/延迟/工具成功率）；② 保种契约 5 维扩展（官种/体积/周期/开始时间/做种数下限）；③ 新增 Flarum 论坛适配（invites.fun / pting.club）与吾爱破解 52pojie 适配；④ 工作流/下载器/整理/娱乐 测试加固与缺陷修复。docker 用户 pull :latest 即更新；客户端各平台 sha256 已更新。",
+  "releaseName": "0.89.01：自动化增强 + 下载器扩展 + 影视详情修复",
+  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）: https://wwazg.lanzoub.com/b03anmtyxg。本次 0.89.01 主要更新：① 强化自动化与实时集成，补齐工作流相关联调能力；② 新增 Aria2、ruTorrent、Flood、uTorrent、Deluge 下载器支持及前端能力门控；③ 修复豆瓣演员头像 CDN 协议协商导致的大量 502；④ 影视详情页返回完整演员阵容，推荐扩展到 20 条，并增加对标 MoviePilot 的完整列表“更多”视图；⑤ 修复 M-Team API 主机归一化与 PlayletPT 域名迁移等站点兼容问题。docker 用户 pull :latest 即更新；Android、Windows 与 Agent sha256 已更新。",
   "isForced": false,
+  "publishedAt": "2026-07-16T23:15:18Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:0.89.00",
+      "image": "ghcr.io/gntv456/pt-patronus:0.89.01",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "cfeaeda1863b734703abda6d0ddb184a3ff120a40fa3d6fcd5205a45c5a69b4b"
+      "sha256": "fba917ef943413aa08134757bfec7646fd468116a3d23d1f2297f4e53507fe00"
     },
     "ios": {
       "url": "https://<AltSource.json 公开URL>"
@@ -22,15 +23,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "856cd777fcc17acc10ec7b2561e15da12739c8520034c4fd4debd959cfd9e5a9"
+      "sha256": "358ae621664eeaad0c98b87fcb5a4e1d04b1500698cd5ae753fb2a153dbe3bf0"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "b6b29bb210ca0c0df607ee3c8694b9e4877b0b31871665335a5fb132c851b71f"
+      "sha256": "2a1c873c396737a02bdd8b26c1b5f4358c8bc87c12b0a7888e452045b4166bb0"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "31a0fba2736110eece297683c74be5e86231138a8ecc3af17dc137c9742efdfe"
+      "sha256": "d9f8e4700848dc0d990042b686cc25dc0714ea538f7c5acac6777195717f77d7"
     }
   }
 }
