@@ -1,18 +1,18 @@
 {
-  "latestVersion": "0.89.01",
+  "latestVersion": "0.90.00",
   "minVersion": "0.60.00",
-  "releaseName": "0.89.01：自动化增强 + 下载器扩展 + 影视详情修复",
-  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）: https://wwazg.lanzoub.com/b03anmtyxg。本次 0.89.01 主要更新：① 强化自动化与实时集成，补齐工作流相关联调能力；② 新增 Aria2、ruTorrent、Flood、uTorrent、Deluge 下载器支持及前端能力门控；③ 修复豆瓣演员头像 CDN 协议协商导致的大量 502；④ 影视详情页返回完整演员阵容，推荐扩展到 20 条，并增加对标 MoviePilot 的完整列表“更多”视图；⑤ 修复 M-Team API 主机归一化与 PlayletPT 域名迁移等站点兼容问题。docker 用户 pull :latest 即更新；Android、Windows 与 Agent sha256 已更新。",
+  "releaseName": "0.90.00：降低 PT 站点感知——聚合快照 + assessment uid 修复 + 频率可配",
+  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）: https://wwazg.lanzoub.com/b03anmtyxg。本次 0.90.00 主要更新：① 修复某 PT 站警告（考核每整小时裸访 userdetails.php 无效参数）——考核现访问 userdetails.php?id=<uid>，uid 空 zero 请求；② 降低站点感知：stats/站免/公告/消息/cookie保活/考核 6 个高频 cron 收敛为 1 个聚合快照（每 4h 串行），单站日请求降约 8 倍；③ H&R 拆回独立每小时（封号命脉时效优先）；④ index.php 双解析（站免+公告一次 GET）+ per-site 串行 + 随机抖动；⑤ 新增「设置-调度频率」，前端可配聚合快照 cron（DB>env，实时生效）。docker 用户 pull :latest 即更新；Android/Windows/Agent sha256 已更新。",
   "isForced": false,
-  "publishedAt": "2026-07-16T23:15:18Z",
+  "publishedAt": "2026-07-22T18:30:00Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:0.89.01",
+      "image": "ghcr.io/gntv456/pt-patronus:0.90.00",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "fba917ef943413aa08134757bfec7646fd468116a3d23d1f2297f4e53507fe00"
+      "sha256": "bb4f2c2aee8b7b6785aed865245203b776d059b174df94eefe0a265970288b21"
     },
     "ios": {
       "url": "https://<AltSource.json 公开URL>"
@@ -23,15 +23,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "358ae621664eeaad0c98b87fcb5a4e1d04b1500698cd5ae753fb2a153dbe3bf0"
+      "sha256": "4e05a73648a200f3ea5ffb0b05670d3aba36dae7f2a5709420b77a9465106d7b"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "2a1c873c396737a02bdd8b26c1b5f4358c8bc87c12b0a7888e452045b4166bb0"
+      "sha256": "716638a3e4e2d5faac0731a88eb4fe6722f29f688b0f3020e62ef1eb2f590a5b"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "d9f8e4700848dc0d990042b686cc25dc0714ea538f7c5acac6777195717f77d7"
+      "sha256": "d0f6c4b23fd89454df741ba01e02c8b68b175fa62c86ba069e0822c3fb55c736"
     }
   }
 }
