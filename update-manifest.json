@@ -1,18 +1,18 @@
 {
-  "latestVersion": "1.0.0",
+  "latestVersion": "1.01.01",
   "minVersion": "0.60.00",
-  "releaseName": "1.0.0：正式版 — 监控磁盘去重/详情字段/网速温度采集",
-  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）：https://wwazg.lanzoub.com/b03anmtyxg。本版 1.0.0 主要更新：① 监控磁盘过滤 docker overlay 避免容量乘 N；② ListSnapshots 取最近 N 条，卡片不再显示最旧快照；③ SSH 详情补齐核心数/Swap/进程/主机名/内核/温度；④ 网速 RecordSnapshot 回传 + 详情先 collect 再读快照；⑤ Windows 温度多源（LHM/OHM/ACPI/nvidia-smi）；⑥ sunnypt 等站点适配与搜索 SSE 等既有能力。docker 用户 pull :latest 即更新。",
+  "releaseName": "1.01.01：命令面板收敛 / 通知玻璃质感 / 连通性 SSE",
+  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）：https://wwazg.lanzoub.com/b03anmtyxg。本版 1.01.01 主要更新：① 命令面板（⌘K / FAB）空查询只列侧栏外功能入口、输入查询全量 fuzzy（侧栏项仍可搜到）；② 通知中心弹窗改磨砂玻璃质感（与命令面板同体系）；③ 站点连通性缓存 + SSE 逐站更新；④ 公告 / 站点 favicon 等前端调整；⑤ 版本号 1.0.0 → 1.01.01。docker 用户 pull :latest 即更新。",
   "isForced": false,
-  "publishedAt": "2026-07-24T04:50:09Z",
+  "publishedAt": "2026-07-25T06:30:00Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.0.0",
+      "image": "ghcr.io/gntv456/pt-patronus:1.01.01",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "f13f0e2e79cc6426c7469a8b68b731ff1651f5a9225b42eba61cc365ea4eb28b"
+      "sha256": "69d01cd2d29a0365c2298e0375db5c33e900ffabf45f45ba1df6c6cb14acc936"
     },
     "ios": {
       "url": "https://<AltSource.json 公开URL>"
@@ -23,15 +23,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "6d2f51759c10c3ca41984328f54702d148a68c7eefdece53862042a651bdba94"
+      "sha256": "8faceb27f956b619888cbdcec80b63c808a8234ce0bb797935173b41a1628c6f"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "5d7d3ad01d833ddbcba1d1c9946b20a1aea26fa83a11cb38520eac36fb08dc96"
+      "sha256": "a656e1869f5866286a4842614fc2350f5cdd59972ef213655fe968b872e5e65b"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "d2e7361ba0f222b8fdaae013fcea028e1a121b2b72aa3eb6cbeea077cf37a580"
+      "sha256": "10554ecc099818f83953378489b7d95d848c22fcf94b73b8c367f002950c7be6"
     }
   }
 }
