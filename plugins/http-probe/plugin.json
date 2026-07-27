@@ -1,0 +1,70 @@
+{
+  "id": "http-probe",
+  "name": "HTTP 站点探测",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "探测站点/API 的状态码、响应时间与响应片段，适合巡检与可用性检查。",
+  "license": "MIT",
+  "keywords": [
+    "http",
+    "probe"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "probe",
+      "label": "探测 URL",
+      "description": "发起一次 HTTP/HTTPS 请求并返回结果。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "timeout_seconds",
+      "label": "超时(秒)",
+      "type": "number",
+      "default": 10
+    },
+    {
+      "key": "follow_redirects",
+      "label": "跟随重定向",
+      "type": "switch",
+      "default": true
+    },
+    {
+      "key": "allow_private_network",
+      "label": "允许内网地址",
+      "type": "switch",
+      "default": false
+    },
+    {
+      "key": "max_body_bytes",
+      "label": "响应片段字节",
+      "type": "number",
+      "default": 2048
+    },
+    {
+      "key": "default_headers",
+      "label": "默认请求头",
+      "type": "textarea",
+      "default": "User-Agent: PTPatronus-PluginProbe/1.0"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "用户指定 URL"
+    ]
+  }
+}

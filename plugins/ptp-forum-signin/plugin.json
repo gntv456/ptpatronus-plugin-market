@@ -1,0 +1,75 @@
+{
+  "id": "ptp-forum-signin",
+  "name": "论坛签到",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "对已配置站点执行论坛签到（开源市场版，支持通用 URL 签到模板）。",
+  "license": "MIT",
+  "keywords": [
+    "forum",
+    "signin"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write",
+    "kv:read",
+    "kv:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "run",
+      "label": "立即签到",
+      "description": "执行全部站点签到。"
+    },
+    {
+      "name": "labels",
+      "label": "支持列表",
+      "description": "返回内置站点标签。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "sites",
+      "label": "签到站点",
+      "type": "textarea",
+      "default": "",
+      "help": "每行 name|url|cookie 或 name|url"
+    },
+    {
+      "key": "cron",
+      "label": "定时",
+      "type": "text",
+      "default": "0 8 * * *"
+    },
+    {
+      "key": "notify",
+      "label": "通知",
+      "type": "switch",
+      "default": true
+    }
+  ],
+  "schedule": [
+    {
+      "id": "signin",
+      "label": "每日论坛签到",
+      "action": "run",
+      "cron_config_key": "cron"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "配置的论坛站点"
+    ]
+  }
+}

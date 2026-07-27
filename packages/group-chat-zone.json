@@ -1,0 +1,92 @@
+{
+  "id": "group-chat-zone",
+  "name": "群聊区",
+  "version": "3.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/group-chat-zone-3.0.0.zip",
+  "sha256": "4dbb4c4a0e9d052f0b231237d19e15a011420a09236461a0e0e1f57395a26273",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.schedule.cron",
+    "host.api.log.write",
+    "host.api.notice.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "按站点配置定时发送群聊/喊话消息（开源市场通用版）。",
+  "license": "MIT",
+  "keywords": [
+    "shout",
+    "groupchat"
+  ],
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "actions": [
+    {
+      "name": "run_main",
+      "label": "主任务",
+      "description": "发送主消息列表。"
+    },
+    {
+      "name": "run_zm",
+      "label": "织梦任务",
+      "description": "发送织梦独立消息。"
+    },
+    {
+      "name": "preview",
+      "label": "预览配置",
+      "description": "查看将要发送的目标。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "targets",
+      "label": "目标",
+      "type": "textarea",
+      "default": "",
+      "help": "每行 name|post_url|cookie|message"
+    },
+    {
+      "key": "zm_targets",
+      "label": "织梦目标",
+      "type": "textarea",
+      "default": ""
+    },
+    {
+      "key": "cron",
+      "label": "主定时",
+      "type": "text",
+      "default": "0 9 * * *"
+    },
+    {
+      "key": "zm_cron",
+      "label": "织梦定时",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "notify",
+      "label": "通知",
+      "type": "switch",
+      "default": true
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "站点群聊接口"
+    ]
+  },
+  "signature": "lDqKg+mA5G2wCVfXXVrt5o7G0y1y2n4ZT6c2fhJjFShLFy/fcOLrd5sZKyTWPdD9Yp79wTKkApB9L1Lqa5dwDg==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

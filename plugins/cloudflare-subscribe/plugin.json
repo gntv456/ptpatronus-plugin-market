@@ -1,0 +1,89 @@
+{
+  "id": "cloudflare-subscribe",
+  "name": "Cloudflare订阅",
+  "version": "1.0.5",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "定时拉取订阅源并更新本地 hosts 片段（迁移自 MoviePilot）。",
+  "license": "MIT",
+  "keywords": [
+    "cloudflare",
+    "hosts"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "update_hosts",
+      "label": "拉取并更新",
+      "description": "下载订阅并写入 hosts 标记块。"
+    },
+    {
+      "name": "preview",
+      "label": "预览订阅",
+      "description": "仅下载解析不写文件。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "subscribe_urls",
+      "label": "订阅 URL",
+      "type": "textarea",
+      "default": "",
+      "help": "每行一个"
+    },
+    {
+      "key": "hosts_path",
+      "label": "hosts 路径",
+      "type": "text",
+      "default": "",
+      "help": "留空则仅预览/保存到插件 KV"
+    },
+    {
+      "key": "marker",
+      "label": "标记名",
+      "type": "text",
+      "default": "PTPATRONUS-CF"
+    },
+    {
+      "key": "cron_update",
+      "label": "定时",
+      "type": "text",
+      "default": "0 6 * * *"
+    },
+    {
+      "key": "notify",
+      "label": "通知",
+      "type": "switch",
+      "default": true
+    }
+  ],
+  "schedule": [
+    {
+      "id": "daily_update",
+      "label": "每日拉取订阅",
+      "action": "update_hosts",
+      "cron_config_key": "cron_update"
+    }
+  ],
+  "resource_access": {
+    "fs_paths": [
+      "hosts 文件"
+    ],
+    "net_hosts": [
+      "订阅 URL"
+    ]
+  }
+}

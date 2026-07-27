@@ -1,0 +1,60 @@
+{
+  "id": "text-toolbox",
+  "name": "文本工具箱",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/text-toolbox-1.0.0.zip",
+  "sha256": "2c7a57f917d7a719c91c0643e0d569178b5750fe22c6e23212110d7fffc8fd74",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "常用文本处理：统计、大小写、替换、分割、去重、哈希。",
+  "license": "MIT",
+  "keywords": [
+    "text"
+  ],
+  "permissions": [
+    "log:write"
+  ],
+  "actions": [
+    {
+      "name": "stats",
+      "label": "统计",
+      "description": "字数/行数/词数。"
+    },
+    {
+      "name": "transform",
+      "label": "变换",
+      "description": "upper/lower/title/strip。"
+    },
+    {
+      "name": "replace",
+      "label": "替换",
+      "description": "查找替换。"
+    },
+    {
+      "name": "split_unique",
+      "label": "分割去重",
+      "description": "按分隔符分割并去重。"
+    },
+    {
+      "name": "hash",
+      "label": "哈希",
+      "description": "md5/sha1/sha256。"
+    }
+  ],
+  "signature": "dfSVNMtgefat/kWrYnzqgvmaEDfuBxtF+ZzUwV2RZKVjgqyQMJDr1f1hg4bfjz0XZ6romP1kqexv/s1p5ZXtAA==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

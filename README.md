@@ -10,12 +10,32 @@ PTPatronus 主程序闭源,但插件平台是开放开发面。本仓库收录 *
 
 ## 官方插件
 
-| 插件 | 作用 | 依赖 |
+| 插件 | 作用 | 版本 |
 |---|---|---|
-| `ptp-cd2-assistant` | 定时检查 CloudDrive2 实例(上传错误/账号失效)+ 仪表盘(CPU/内存/任务/速度/容量) | 宿主 `pip install clouddrive`、真实 CD2 实例 |
-| `ptp-ffmpeg-thumb` | 扫描媒体库,用 FFmpeg 为缺缩略图的视频截一帧 `<名>-thumb.jpg` | 宿主机 `ffmpeg` |
-| `ptp-miwifi` | 小米/红米路由助手（AX9000 三频/端口映射/设备管理） | 路由器管理密码；经典 Luci Web API |
-| `ptp-library-scrape` | 扫描媒体库,复用宿主 TMDB/豆瓣等源补齐 Kodi 兼容 nfo + 海报 | 无需自备 key(用宿主 media API) |
+| `auto-speed` | 简易下载测速（迁移自 MoviePilot auto-speed）。 | v1.1.0 |
+| `cloudflare-subscribe` | 定时拉取订阅源并更新本地 hosts 片段（迁移自 MoviePilot）。 | v1.0.5 |
+| `cron-helper` | 校验 Cron 表达式并预览接下来若干次执行时间。 | v1.0.0 |
+| `event-audit` | 记录插件事件总线中的关键事件，便于排查 Webhook、测试事件和后续业务事件。 | v1.0.0 |
+| `group-chat-zone` | 按站点配置定时发送群聊/喊话消息（开源市场通用版）。 | v3.0.0 |
+| `http-probe` | 探测站点/API 的状态码、响应时间与响应片段，适合巡检与可用性检查。 | v1.0.0 |
+| `json-toolbox` | 格式化、压缩、取值路径与 JSON 校验工具。 | v1.0.0 |
+| `keyword-alert` | 监听事件 payload，命中关键词后发送通知。 | v1.0.0 |
+| `notice-forwarder` | 将指定事件转成站内通知，并复用系统通知通道外发。 | v1.0.0 |
+| `ptp-ai-subtitle` | 用 faster-whisper 为视频自动转录生成字幕（.srt），可选 OpenAI 兼容接口翻译为目标语言。... | v0.1.0 |
+| `ptp-cd2-assistant` | 定时检查 CloudDrive2 实例：探测上传任务错误/账号失效并通知；提供重启、查看系统信息、提交离线下载等动... | v0.1.0 |
+| `ptp-custom-command` | 按行配置本地命令并定时/手动执行（工作目录与超时可配）。 | v1.0.0 |
+| `ptp-drama-scrape` | 扫描短剧目录，调用寸光集等源补齐元数据/封面（开源市场版）。 | v1.0.0 |
+| `ptp-ffmpeg-thumb` | 定时扫描媒体库，为每个缺少缩略图的视频用 FFmpeg 截取一帧作为 <文件名>-thumb.jpg。需要宿主机已... | v0.1.0 |
+| `ptp-forum-signin` | 对已配置站点执行论坛签到（开源市场版，支持通用 URL 签到模板）。 | v1.0.0 |
+| `ptp-library-scrape` | 定时扫描媒体库目录，调用宿主媒体元数据 API（复用 PTPatronus 的 TMDB/豆瓣等源）补齐 Kodi... | v0.1.0 |
+| `ptp-mcp-server` | MCP 相关配置与工具清单查看（完整 MCP HTTP 端点仍由宿主提供；本插件承接配置与可观测动作）。 | v1.0.0 |
+| `ptp-miwifi` | 连接小米/红米路由器（含 AX9000/ra81 三频优化）：系统状态、设备、Wi-Fi、WAN/LAN/DHCP... | v0.2.2 |
+| `ptp-playlet-category` | 扫描目录，按集数/命名规则将短剧移动到分类文件夹。 | v1.0.0 |
+| `ptp-plex-suite` | 连接 Plex，刷新库/应用基础维护任务（开源市场版）。 | v1.0.0 |
+| `text-toolbox` | 常用文本处理：统计、大小写、替换、分割、去重、哈希。 | v1.0.0 |
+| `twofa-helper` | 基于 Base32 密钥生成 TOTP 验证码（迁移自 MoviePilot）。 | v1.2.7 |
+| `webhook-transformer` | 监听 Webhook 事件，按映射规则提取字段并转发为通知或新事件。 | v1.0.0 |
+| `xiaomi-router` | 登录小米路由器，查看状态并管理端口映射（开源市场版；完整增强见 ptp-miwifi）。 | v1.0.0 |
 
 ## 安装
 

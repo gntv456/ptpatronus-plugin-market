@@ -1,0 +1,76 @@
+{
+  "id": "ptp-mcp-server",
+  "name": "MCP 服务端",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/ptp-mcp-server-1.0.0.zip",
+  "sha256": "6f66b82f36f4393675053f83ce6663a82335d8c07e3c069d32111e442537024f",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "MCP 相关配置与工具清单查看（完整 MCP HTTP 端点仍由宿主提供；本插件承接配置与可观测动作）。",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "ai"
+  ],
+  "permissions": [
+    "log:write"
+  ],
+  "actions": [
+    {
+      "name": "tools",
+      "label": "查看工具清单",
+      "description": "返回建议暴露的工具名（实际以宿主 /api/v1/mcp 为准）。"
+    },
+    {
+      "name": "status",
+      "label": "状态",
+      "description": "返回插件配置摘要。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "enabled",
+      "label": "启用 MCP",
+      "type": "switch",
+      "default": false
+    },
+    {
+      "key": "token",
+      "label": "访问令牌",
+      "type": "password",
+      "default": ""
+    },
+    {
+      "key": "allow_tools",
+      "label": "允许工具",
+      "type": "textarea",
+      "default": "site.*,search.*,downloader.*",
+      "help": "通配列表，供宿主 SettingsGetter 读取"
+    }
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "ptp-mcp-server.tools",
+        "label": "MCP：查看工具清单",
+        "action": "tools"
+      }
+    ]
+  },
+  "signature": "G9sf5ndSPlZtDqRtYypce1gbcb5aGL/TaQyUKzliI8okcsCDIqdbJxvA58+em7o7zTXekvwXzxAXppVl9WOgCQ==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

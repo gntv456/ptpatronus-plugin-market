@@ -1,0 +1,53 @@
+{
+  "id": "text-toolbox",
+  "name": "文本工具箱",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "常用文本处理：统计、大小写、替换、分割、去重、哈希。",
+  "license": "MIT",
+  "keywords": [
+    "text"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "stats",
+      "label": "统计",
+      "description": "字数/行数/词数。"
+    },
+    {
+      "name": "transform",
+      "label": "变换",
+      "description": "upper/lower/title/strip。"
+    },
+    {
+      "name": "replace",
+      "label": "替换",
+      "description": "查找替换。"
+    },
+    {
+      "name": "split_unique",
+      "label": "分割去重",
+      "description": "按分隔符分割并去重。"
+    },
+    {
+      "name": "hash",
+      "label": "哈希",
+      "description": "md5/sha1/sha256。"
+    }
+  ],
+  "config_schema": []
+}

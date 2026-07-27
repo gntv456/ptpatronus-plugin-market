@@ -1,0 +1,223 @@
+{
+  "id": "ptp-ai-subtitle",
+  "name": "AI字幕生成",
+  "version": "0.1.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/ptp-ai-subtitle-0.1.0.zip",
+  "sha256": "560fb767d71b74044054abbe05912491028fed7733d72207a9488437338c7af6",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.schedule.cron",
+    "host.api.log.write",
+    "host.api.notice.write",
+    "host.api.kv.read",
+    "host.api.kv.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "用 faster-whisper 为视频自动转录生成字幕（.srt），可选 OpenAI 兼容接口翻译为目标语言。需要宿主 Python 环境 pip install -r requirements.txt（含 faster-whisper，首次下载模型）。GPU 加速需 CUDA 环境，否则 CPU 回退。",
+  "license": "MIT",
+  "keywords": [
+    "subtitle",
+    "whisper",
+    "ai",
+    "transcribe"
+  ],
+  "permissions": [
+    "log:write",
+    "notice:write",
+    "kv:read",
+    "kv:write"
+  ],
+  "actions": [
+    {
+      "name": "transcribe",
+      "label": "转录单个视频",
+      "description": "对给定视频路径用 faster-whisper 转录生成同名 .srt（可选翻译）。参数：{path}。后台执行，进度用 status 查询。"
+    },
+    {
+      "name": "scan",
+      "label": "扫描转录缺失字幕",
+      "description": "扫描配置的视频路径，为缺少 .srt 的视频转录生成字幕。立即返回，后台跑。"
+    },
+    {
+      "name": "status",
+      "label": "查询转录状态",
+      "description": "返回后台转录任务的运行状态、当前文件与计数。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "scan_paths",
+      "label": "扫描路径",
+      "type": "textarea",
+      "default": "",
+      "help": "每行一个目录，递归扫描其中的视频文件（scan 动作用）。",
+      "group": "转录"
+    },
+    {
+      "key": "model",
+      "label": "Whisper 模型",
+      "type": "select",
+      "default": "small",
+      "options": [
+        {
+          "value": "tiny",
+          "label": "tiny"
+        },
+        {
+          "value": "base",
+          "label": "base"
+        },
+        {
+          "value": "small",
+          "label": "small"
+        },
+        {
+          "value": "medium",
+          "label": "medium"
+        },
+        {
+          "value": "large-v3",
+          "label": "large-v3"
+        }
+      ],
+      "help": "越大越准越慢；small 兼顾速度与中文准确率。",
+      "group": "转录"
+    },
+    {
+      "key": "device",
+      "label": "设备",
+      "type": "select",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "auto（自动）"
+        },
+        {
+          "value": "cpu",
+          "label": "cpu"
+        },
+        {
+          "value": "cuda",
+          "label": "cuda"
+        }
+      ],
+      "help": "auto 优先 CUDA，无 GPU 回退 CPU。",
+      "group": "转录"
+    },
+    {
+      "key": "language",
+      "label": "源语言",
+      "type": "text",
+      "default": "auto",
+      "help": "auto 自动检测；或 zh/en/ja 等指定。",
+      "group": "转录"
+    },
+    {
+      "key": "media_ext",
+      "label": "视频扩展名",
+      "type": "text",
+      "default": ".mp4,.mkv,.avi,.ts,.mov,.wmv,.flv,.m4v",
+      "group": "转录"
+    },
+    {
+      "key": "translate_enabled",
+      "label": "启用翻译",
+      "type": "switch",
+      "default": false,
+      "help": "转录后用 OpenAI 兼容接口把字幕翻译为目标语言（双语或替换）。",
+      "group": "翻译"
+    },
+    {
+      "key": "openai_base_url",
+      "label": "OpenAI 兼容接口",
+      "type": "text",
+      "default": "",
+      "help": "如 https://api.openai.com/v1 或自建 / 兼容服务。",
+      "group": "翻译"
+    },
+    {
+      "key": "openai_api_key",
+      "label": "API Key",
+      "type": "password",
+      "default": "",
+      "group": "翻译"
+    },
+    {
+      "key": "openai_model",
+      "label": "翻译模型",
+      "type": "text",
+      "default": "gpt-4o-mini",
+      "group": "翻译"
+    },
+    {
+      "key": "target_lang",
+      "label": "目标语言",
+      "type": "text",
+      "default": "中文",
+      "help": "翻译目标，如 中文/English。",
+      "group": "翻译"
+    },
+    {
+      "key": "bilingual",
+      "label": "双语字幕",
+      "type": "switch",
+      "default": false,
+      "help": "开启则生成「原文+译文」双语字幕，否则仅译文。",
+      "group": "翻译"
+    },
+    {
+      "key": "cron",
+      "label": "定时表达式",
+      "type": "text",
+      "default": "",
+      "help": "留空不自动扫描；示例 0 3 * * * 每日3点扫描转录。",
+      "group": "调度"
+    }
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "ptp-ai-subtitle.transcribe",
+        "label": "AI字幕：转录视频",
+        "action": "transcribe"
+      },
+      {
+        "id": "ptp-ai-subtitle.scan",
+        "label": "AI字幕：扫描转录",
+        "action": "scan"
+      }
+    ],
+    "menus": [
+      {
+        "location": "plugins/actions",
+        "command": "ptp-ai-subtitle.scan"
+      }
+    ]
+  },
+  "resource_access": {
+    "exec_binaries": [
+      "python"
+    ],
+    "fs_paths": [
+      "用户配置的视频扫描路径；模型缓存 ~/.cache/whisper"
+    ],
+    "network": [
+      "huggingface.co（首次下载模型）",
+      "用户配置的 OpenAI 兼容翻译接口"
+    ]
+  },
+  "signature": "MnQtZCybRw7i+EL9k9LNRSGw12pRIqtlGfMzd2/Vjye1p3SWHmBJWxJJMM5S1QALPeEoxRJUNldhATWXFZwLAQ==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

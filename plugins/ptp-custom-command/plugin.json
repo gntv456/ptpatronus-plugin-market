@@ -1,0 +1,88 @@
+{
+  "id": "ptp-custom-command",
+  "name": "自定义命令",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "按行配置本地命令并定时/手动执行（工作目录与超时可配）。",
+  "license": "MIT",
+  "keywords": [
+    "command",
+    "shell"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "run",
+      "label": "运行全部命令",
+      "description": "顺序执行配置中的命令列表。"
+    },
+    {
+      "name": "run_one",
+      "label": "运行单条",
+      "description": "input.index 指定行号（从0开始）。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "commands",
+      "label": "命令列表",
+      "type": "textarea",
+      "default": "",
+      "help": "每行一条 shell 命令"
+    },
+    {
+      "key": "workdir",
+      "label": "工作目录",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "timeout_seconds",
+      "label": "超时秒",
+      "type": "number",
+      "default": 60
+    },
+    {
+      "key": "notify",
+      "label": "完成后通知",
+      "type": "switch",
+      "default": true
+    },
+    {
+      "key": "cron",
+      "label": "定时",
+      "type": "text",
+      "default": ""
+    }
+  ],
+  "schedule": [
+    {
+      "id": "run",
+      "label": "定时运行命令",
+      "action": "run",
+      "cron_config_key": "cron"
+    }
+  ],
+  "resource_access": {
+    "exec_binaries": [
+      "用户配置的 shell 命令"
+    ],
+    "fs_paths": [
+      "工作目录"
+    ]
+  }
+}

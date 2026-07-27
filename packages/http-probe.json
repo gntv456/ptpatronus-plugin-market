@@ -1,0 +1,78 @@
+{
+  "id": "http-probe",
+  "name": "HTTP 站点探测",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/http-probe-1.0.0.zip",
+  "sha256": "9aaa34c8ada49ddae29a30073e18f054140d08bab7c4abf225eb54f468a5a68e",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "探测站点/API 的状态码、响应时间与响应片段，适合巡检与可用性检查。",
+  "license": "MIT",
+  "keywords": [
+    "http",
+    "probe"
+  ],
+  "permissions": [
+    "log:write"
+  ],
+  "actions": [
+    {
+      "name": "probe",
+      "label": "探测 URL",
+      "description": "发起一次 HTTP/HTTPS 请求并返回结果。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "timeout_seconds",
+      "label": "超时(秒)",
+      "type": "number",
+      "default": 10
+    },
+    {
+      "key": "follow_redirects",
+      "label": "跟随重定向",
+      "type": "switch",
+      "default": true
+    },
+    {
+      "key": "allow_private_network",
+      "label": "允许内网地址",
+      "type": "switch",
+      "default": false
+    },
+    {
+      "key": "max_body_bytes",
+      "label": "响应片段字节",
+      "type": "number",
+      "default": 2048
+    },
+    {
+      "key": "default_headers",
+      "label": "默认请求头",
+      "type": "textarea",
+      "default": "User-Agent: PTPatronus-PluginProbe/1.0"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "用户指定 URL"
+    ]
+  },
+  "signature": "Pk7XAY9vxFKzZwevJXcQrmJQn8GJRHPoqLq9Ka1w0j6dY1kraPIkAMfiziixrEG1MENZYh25uY9nMM71Xy0sAQ==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

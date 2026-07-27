@@ -1,0 +1,33 @@
+{
+  "id": "cron-helper",
+  "name": "Cron 助手",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "校验 Cron 表达式并预览接下来若干次执行时间。",
+  "license": "MIT",
+  "keywords": [
+    "cron"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "next_runs",
+      "label": "下次执行时间",
+      "description": "按标准 5 段 Cron 预览执行时间。"
+    }
+  ],
+  "config_schema": []
+}

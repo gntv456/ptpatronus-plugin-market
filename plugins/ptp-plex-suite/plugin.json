@@ -1,0 +1,82 @@
+{
+  "id": "ptp-plex-suite",
+  "name": "Plex 套件",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "连接 Plex，刷新库/应用基础维护任务（开源市场版）。",
+  "license": "MIT",
+  "keywords": [
+    "plex"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "apply",
+      "label": "立即应用",
+      "description": "执行刷新与检查。"
+    },
+    {
+      "name": "libraries",
+      "label": "列出媒体库",
+      "description": "读取 Plex libraries。"
+    },
+    {
+      "name": "status",
+      "label": "连接测试",
+      "description": "测试 Plex 连通。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "base_url",
+      "label": "Plex 地址",
+      "type": "text",
+      "default": "http://127.0.0.1:32400"
+    },
+    {
+      "key": "token",
+      "label": "X-Plex-Token",
+      "type": "password",
+      "default": ""
+    },
+    {
+      "key": "refresh_on_apply",
+      "label": "应用时刷新库",
+      "type": "switch",
+      "default": true
+    },
+    {
+      "key": "cron",
+      "label": "定时",
+      "type": "text",
+      "default": "0 4 * * *"
+    }
+  ],
+  "schedule": [
+    {
+      "id": "apply",
+      "label": "每日应用 Plex 套件",
+      "action": "apply",
+      "cron_config_key": "cron"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "Plex 服务器"
+    ]
+  }
+}

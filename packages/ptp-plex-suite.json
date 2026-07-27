@@ -1,0 +1,84 @@
+{
+  "id": "ptp-plex-suite",
+  "name": "Plex 套件",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/ptp-plex-suite-1.0.0.zip",
+  "sha256": "de3e8b33e5b9788960be0e063116562eaed8ebcda840c0a85e6ed0910eb23b42",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.schedule.cron",
+    "host.api.log.write",
+    "host.api.notice.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "连接 Plex，刷新库/应用基础维护任务（开源市场版）。",
+  "license": "MIT",
+  "keywords": [
+    "plex"
+  ],
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "actions": [
+    {
+      "name": "apply",
+      "label": "立即应用",
+      "description": "执行刷新与检查。"
+    },
+    {
+      "name": "libraries",
+      "label": "列出媒体库",
+      "description": "读取 Plex libraries。"
+    },
+    {
+      "name": "status",
+      "label": "连接测试",
+      "description": "测试 Plex 连通。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "base_url",
+      "label": "Plex 地址",
+      "type": "text",
+      "default": "http://127.0.0.1:32400"
+    },
+    {
+      "key": "token",
+      "label": "X-Plex-Token",
+      "type": "password",
+      "default": ""
+    },
+    {
+      "key": "refresh_on_apply",
+      "label": "应用时刷新库",
+      "type": "switch",
+      "default": true
+    },
+    {
+      "key": "cron",
+      "label": "定时",
+      "type": "text",
+      "default": "0 4 * * *"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "Plex 服务器"
+    ]
+  },
+  "signature": "c4EtiqpBPFuYinbQBnKk2LjzQqzKG6QsSfxt0a5gj5Adn3dUcLtd6UqOGXCqCaqretcABO2cXwvbPUMY2DcFBg==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

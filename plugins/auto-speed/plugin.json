@@ -1,0 +1,73 @@
+{
+  "id": "auto-speed",
+  "name": "网络测速",
+  "version": "1.1.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "简易下载测速（迁移自 MoviePilot auto-speed）。",
+  "license": "MIT",
+  "keywords": [
+    "speedtest",
+    "network"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "run_speedtest",
+      "label": "开始测速",
+      "description": "下载测试文件并估算速度。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "test_url",
+      "label": "测试文件 URL",
+      "type": "text",
+      "default": "https://speed.cloudflare.com/__down?bytes=25000000"
+    },
+    {
+      "key": "timeout_seconds",
+      "label": "超时",
+      "type": "number",
+      "default": 60
+    },
+    {
+      "key": "cron_speedtest",
+      "label": "定时",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "notify",
+      "label": "通知结果",
+      "type": "switch",
+      "default": true
+    }
+  ],
+  "schedule": [
+    {
+      "id": "speedtest",
+      "label": "定时测速",
+      "action": "run_speedtest",
+      "cron_config_key": "cron_speedtest"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "测速 URL"
+    ]
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "id": "xiaomi-router",
+  "name": "小米路由器监控",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "登录小米路由器，查看状态并管理端口映射（开源市场版；完整增强见 ptp-miwifi）。",
+  "license": "MIT",
+  "keywords": [
+    "xiaomi",
+    "router"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "status",
+      "label": "刷新状态",
+      "description": "登录并读取设备/系统状态。"
+    },
+    {
+      "name": "port_list",
+      "label": "端口映射列表",
+      "description": "读取端口映射。"
+    },
+    {
+      "name": "port_add",
+      "label": "添加端口映射",
+      "description": "name/proto/sport/ip/dport"
+    },
+    {
+      "name": "port_delete",
+      "label": "删除端口映射",
+      "description": "按外部端口删除"
+    },
+    {
+      "name": "quick_toggle",
+      "label": "快捷切换",
+      "description": "按预设增删映射"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "router_url",
+      "label": "路由器地址",
+      "type": "text",
+      "default": "http://192.168.31.1"
+    },
+    {
+      "key": "password",
+      "label": "登录密码",
+      "type": "password",
+      "default": ""
+    },
+    {
+      "key": "timeout_seconds",
+      "label": "超时",
+      "type": "number",
+      "default": 10
+    },
+    {
+      "key": "quick_name",
+      "label": "快捷规则名",
+      "type": "text",
+      "default": "ptp-quick"
+    },
+    {
+      "key": "quick_proto",
+      "label": "快捷协议",
+      "type": "text",
+      "default": "tcp"
+    },
+    {
+      "key": "quick_sport",
+      "label": "快捷外部端口",
+      "type": "number",
+      "default": 8000
+    },
+    {
+      "key": "quick_ip",
+      "label": "快捷内网IP",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "quick_dport",
+      "label": "快捷内部端口",
+      "type": "number",
+      "default": 8000
+    },
+    {
+      "key": "cron_status",
+      "label": "定时刷新",
+      "type": "text",
+      "default": ""
+    }
+  ],
+  "schedule": [
+    {
+      "id": "status_refresh",
+      "label": "定时刷新状态",
+      "action": "status",
+      "cron_config_key": "cron_status"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "小米路由器管理地址"
+    ]
+  }
+}

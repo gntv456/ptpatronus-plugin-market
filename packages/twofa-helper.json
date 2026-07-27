@@ -1,0 +1,56 @@
+{
+  "id": "twofa-helper",
+  "name": "两步验证助手",
+  "version": "1.2.7",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/twofa-helper-1.2.7.zip",
+  "sha256": "06656e2a22acb9e776de35826e817208087e3c4fda45482ba05ac8c33636b76f",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "基于 Base32 密钥生成 TOTP 验证码（迁移自 MoviePilot）。",
+  "license": "MIT",
+  "keywords": [
+    "2fa",
+    "totp",
+    "otp"
+  ],
+  "permissions": [
+    "log:write"
+  ],
+  "actions": [
+    {
+      "name": "generate",
+      "label": "生成验证码",
+      "description": "为配置/输入的 secret 生成当前 TOTP。"
+    },
+    {
+      "name": "list",
+      "label": "列出账户",
+      "description": "列出已配置账户（不含 secret）。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "accounts",
+      "label": "账户列表",
+      "type": "textarea",
+      "default": "",
+      "help": "每行 name|BASE32_SECRET 或 otpauth uri"
+    }
+  ],
+  "signature": "DIHtO5lRxodrzq3f3o9OpjpJzDr1jJPl1r5XWku8KguvSCTrKN3JKkjFKJZVfShVZWS9CiTr+LBuLRbdz4C2Aw==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "id": "ptp-mcp-server",
+  "name": "MCP 服务端",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "MCP 相关配置与工具清单查看（完整 MCP HTTP 端点仍由宿主提供；本插件承接配置与可观测动作）。",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "ai"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "tools",
+      "label": "查看工具清单",
+      "description": "返回建议暴露的工具名（实际以宿主 /api/v1/mcp 为准）。"
+    },
+    {
+      "name": "status",
+      "label": "状态",
+      "description": "返回插件配置摘要。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "enabled",
+      "label": "启用 MCP",
+      "type": "switch",
+      "default": false
+    },
+    {
+      "key": "token",
+      "label": "访问令牌",
+      "type": "password",
+      "default": ""
+    },
+    {
+      "key": "allow_tools",
+      "label": "允许工具",
+      "type": "textarea",
+      "default": "site.*,search.*,downloader.*",
+      "help": "通配列表，供宿主 SettingsGetter 读取"
+    }
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "id": "ptp-mcp-server.tools",
+        "label": "MCP：查看工具清单",
+        "action": "tools"
+      }
+    ]
+  }
+}

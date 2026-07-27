@@ -1,0 +1,84 @@
+{
+  "id": "ptp-playlet-category",
+  "name": "短剧自动分类",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "扫描目录，按集数/命名规则将短剧移动到分类文件夹。",
+  "license": "MIT",
+  "keywords": [
+    "playlet",
+    "category"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "scan",
+      "label": "立即扫描分类",
+      "description": "后台扫描并移动。"
+    },
+    {
+      "name": "status",
+      "label": "状态",
+      "description": "查询任务状态。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "scan_paths",
+      "label": "扫描路径",
+      "type": "textarea",
+      "default": ""
+    },
+    {
+      "key": "target_root",
+      "label": "分类根目录",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "min_episodes",
+      "label": "短剧最小集数",
+      "type": "number",
+      "default": 20
+    },
+    {
+      "key": "dry_run",
+      "label": "仅演练",
+      "type": "switch",
+      "default": false
+    },
+    {
+      "key": "cron",
+      "label": "定时",
+      "type": "text",
+      "default": ""
+    }
+  ],
+  "schedule": [
+    {
+      "id": "scan",
+      "label": "定时分类短剧",
+      "action": "scan",
+      "cron_config_key": "cron"
+    }
+  ],
+  "resource_access": {
+    "fs_paths": [
+      "扫描/目标目录"
+    ]
+  }
+}

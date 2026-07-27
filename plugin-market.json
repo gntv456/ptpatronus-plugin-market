@@ -23,6 +23,913 @@
   "public_key": "cbK2okPdJoXOUPlW3vL1KEKWM6Owm4rO6Mw3+kICRfs=",
   "plugins": [
     {
+      "id": "auto-speed",
+      "name": "\u7f51\u7edc\u6d4b\u901f",
+      "version": "1.1.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/auto-speed-1.1.0.zip",
+      "sha256": "9f1be95d365a148bf1ad8f6e2f7773888bbfed125e4c47673e8833f931bdc7d5",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u7b80\u6613\u4e0b\u8f7d\u6d4b\u901f\uff08\u8fc1\u79fb\u81ea MoviePilot auto-speed\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "speedtest",
+        "network"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write"
+      ],
+      "actions": [
+        {
+          "name": "run_speedtest",
+          "label": "\u5f00\u59cb\u6d4b\u901f",
+          "description": "\u4e0b\u8f7d\u6d4b\u8bd5\u6587\u4ef6\u5e76\u4f30\u7b97\u901f\u5ea6\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "test_url",
+          "label": "\u6d4b\u8bd5\u6587\u4ef6 URL",
+          "type": "text",
+          "default": "https://speed.cloudflare.com/__down?bytes=25000000"
+        },
+        {
+          "key": "timeout_seconds",
+          "label": "\u8d85\u65f6",
+          "type": "number",
+          "default": 60
+        },
+        {
+          "key": "cron_speedtest",
+          "label": "\u5b9a\u65f6",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "key": "notify",
+          "label": "\u901a\u77e5\u7ed3\u679c",
+          "type": "switch",
+          "default": true
+        }
+      ],
+      "resource_access": {
+        "net_hosts": [
+          "\u6d4b\u901f URL"
+        ]
+      },
+      "signature": "d5OtXxGIPs7TuEP652JF8qAd/W6n0M1DdqbOSHlVH7yIsQux2Ktl+EoTz49kFIAD7eOdc5n/70vhZHIgV7gjCw==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "cloudflare-subscribe",
+      "name": "Cloudflare\u8ba2\u9605",
+      "version": "1.0.5",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/cloudflare-subscribe-1.0.5.zip",
+      "sha256": "95d175b5acb0602873daacff22a2eb75ee2512a5d2509043c97d590e41e3d245",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u5b9a\u65f6\u62c9\u53d6\u8ba2\u9605\u6e90\u5e76\u66f4\u65b0\u672c\u5730 hosts \u7247\u6bb5\uff08\u8fc1\u79fb\u81ea MoviePilot\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "cloudflare",
+        "hosts"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write"
+      ],
+      "actions": [
+        {
+          "name": "update_hosts",
+          "label": "\u62c9\u53d6\u5e76\u66f4\u65b0",
+          "description": "\u4e0b\u8f7d\u8ba2\u9605\u5e76\u5199\u5165 hosts \u6807\u8bb0\u5757\u3002"
+        },
+        {
+          "name": "preview",
+          "label": "\u9884\u89c8\u8ba2\u9605",
+          "description": "\u4ec5\u4e0b\u8f7d\u89e3\u6790\u4e0d\u5199\u6587\u4ef6\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "subscribe_urls",
+          "label": "\u8ba2\u9605 URL",
+          "type": "textarea",
+          "default": "",
+          "help": "\u6bcf\u884c\u4e00\u4e2a"
+        },
+        {
+          "key": "hosts_path",
+          "label": "hosts \u8def\u5f84",
+          "type": "text",
+          "default": "",
+          "help": "\u7559\u7a7a\u5219\u4ec5\u9884\u89c8/\u4fdd\u5b58\u5230\u63d2\u4ef6 KV"
+        },
+        {
+          "key": "marker",
+          "label": "\u6807\u8bb0\u540d",
+          "type": "text",
+          "default": "PTPATRONUS-CF"
+        },
+        {
+          "key": "cron_update",
+          "label": "\u5b9a\u65f6",
+          "type": "text",
+          "default": "0 6 * * *"
+        },
+        {
+          "key": "notify",
+          "label": "\u901a\u77e5",
+          "type": "switch",
+          "default": true
+        }
+      ],
+      "resource_access": {
+        "fs_paths": [
+          "hosts \u6587\u4ef6"
+        ],
+        "net_hosts": [
+          "\u8ba2\u9605 URL"
+        ]
+      },
+      "signature": "8nViF0bpDfdaEpUcUevByuxJlIF5ikXTbpNKscHK7oUwOK50w8W6cBLGbOZTFz0GRycUG66R3RicNK9csLEuAw==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "cron-helper",
+      "name": "Cron \u52a9\u624b",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/cron-helper-1.0.0.zip",
+      "sha256": "9abb4b51237263edfca8dc51abd2b27d6843bda4dbb688e5d286d4b0eb479dee",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u6821\u9a8c Cron \u8868\u8fbe\u5f0f\u5e76\u9884\u89c8\u63a5\u4e0b\u6765\u82e5\u5e72\u6b21\u6267\u884c\u65f6\u95f4\u3002",
+      "license": "MIT",
+      "keywords": [
+        "cron"
+      ],
+      "permissions": [
+        "log:write"
+      ],
+      "actions": [
+        {
+          "name": "next_runs",
+          "label": "\u4e0b\u6b21\u6267\u884c\u65f6\u95f4",
+          "description": "\u6309\u6807\u51c6 5 \u6bb5 Cron \u9884\u89c8\u6267\u884c\u65f6\u95f4\u3002"
+        }
+      ],
+      "signature": "bcYGMc0bXC7PJPv9It0/zhTg079LfphyyMxvtYn2fwf4wM+xjbUicGOfJ9nmGzZFRd/vvya+L3bFkdJfCPr4AA==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "event-audit",
+      "name": "\u4e8b\u4ef6\u5ba1\u8ba1",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/event-audit-1.0.0.zip",
+      "sha256": "5a8473bf20975d68dfa391fe5351bd12ec46685e9c5cbdfea723ec82ea85a14c",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.event.subscription",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u8bb0\u5f55\u63d2\u4ef6\u4e8b\u4ef6\u603b\u7ebf\u4e2d\u7684\u5173\u952e\u4e8b\u4ef6\uff0c\u4fbf\u4e8e\u6392\u67e5 Webhook\u3001\u6d4b\u8bd5\u4e8b\u4ef6\u548c\u540e\u7eed\u4e1a\u52a1\u4e8b\u4ef6\u3002",
+      "license": "MIT",
+      "keywords": [
+        "event",
+        "audit"
+      ],
+      "permissions": [
+        "log:write"
+      ],
+      "events": [
+        {
+          "type": "plugin.test",
+          "description": "\u6d4b\u8bd5\u4e8b\u4ef6"
+        },
+        {
+          "type": "webhook",
+          "description": "Webhook"
+        }
+      ],
+      "actions": [
+        {
+          "name": "echo",
+          "label": "\u56de\u663e\u8f93\u5165",
+          "description": "\u8fd4\u56de\u63d0\u4ea4\u7684 JSON\u3002"
+        },
+        {
+          "name": "emit_test_event",
+          "label": "\u53d1\u51fa\u6d4b\u8bd5\u4e8b\u4ef6",
+          "description": "\u53d1\u5e03 plugin.test\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "include_payload",
+          "label": "\u8bb0\u5f55\u4e8b\u4ef6\u6570\u636e",
+          "type": "switch",
+          "default": true
+        }
+      ],
+      "signature": "A71AWml4VC/BD3rv+l08MVMhdsl/99C3tt9EoXoqULHJxM1xCU1ccEgTreO7+/G8oWd97BqwJ5sE/9OoJQfdDw==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "group-chat-zone",
+      "name": "\u7fa4\u804a\u533a",
+      "version": "3.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/group-chat-zone-3.0.0.zip",
+      "sha256": "4dbb4c4a0e9d052f0b231237d19e15a011420a09236461a0e0e1f57395a26273",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u6309\u7ad9\u70b9\u914d\u7f6e\u5b9a\u65f6\u53d1\u9001\u7fa4\u804a/\u558a\u8bdd\u6d88\u606f\uff08\u5f00\u6e90\u5e02\u573a\u901a\u7528\u7248\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "shout",
+        "groupchat"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write"
+      ],
+      "actions": [
+        {
+          "name": "run_main",
+          "label": "\u4e3b\u4efb\u52a1",
+          "description": "\u53d1\u9001\u4e3b\u6d88\u606f\u5217\u8868\u3002"
+        },
+        {
+          "name": "run_zm",
+          "label": "\u7ec7\u68a6\u4efb\u52a1",
+          "description": "\u53d1\u9001\u7ec7\u68a6\u72ec\u7acb\u6d88\u606f\u3002"
+        },
+        {
+          "name": "preview",
+          "label": "\u9884\u89c8\u914d\u7f6e",
+          "description": "\u67e5\u770b\u5c06\u8981\u53d1\u9001\u7684\u76ee\u6807\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "targets",
+          "label": "\u76ee\u6807",
+          "type": "textarea",
+          "default": "",
+          "help": "\u6bcf\u884c name|post_url|cookie|message"
+        },
+        {
+          "key": "zm_targets",
+          "label": "\u7ec7\u68a6\u76ee\u6807",
+          "type": "textarea",
+          "default": ""
+        },
+        {
+          "key": "cron",
+          "label": "\u4e3b\u5b9a\u65f6",
+          "type": "text",
+          "default": "0 9 * * *"
+        },
+        {
+          "key": "zm_cron",
+          "label": "\u7ec7\u68a6\u5b9a\u65f6",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "key": "notify",
+          "label": "\u901a\u77e5",
+          "type": "switch",
+          "default": true
+        }
+      ],
+      "resource_access": {
+        "net_hosts": [
+          "\u7ad9\u70b9\u7fa4\u804a\u63a5\u53e3"
+        ]
+      },
+      "signature": "lDqKg+mA5G2wCVfXXVrt5o7G0y1y2n4ZT6c2fhJjFShLFy/fcOLrd5sZKyTWPdD9Yp79wTKkApB9L1Lqa5dwDg==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "http-probe",
+      "name": "HTTP \u7ad9\u70b9\u63a2\u6d4b",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/http-probe-1.0.0.zip",
+      "sha256": "9aaa34c8ada49ddae29a30073e18f054140d08bab7c4abf225eb54f468a5a68e",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u63a2\u6d4b\u7ad9\u70b9/API \u7684\u72b6\u6001\u7801\u3001\u54cd\u5e94\u65f6\u95f4\u4e0e\u54cd\u5e94\u7247\u6bb5\uff0c\u9002\u5408\u5de1\u68c0\u4e0e\u53ef\u7528\u6027\u68c0\u67e5\u3002",
+      "license": "MIT",
+      "keywords": [
+        "http",
+        "probe"
+      ],
+      "permissions": [
+        "log:write"
+      ],
+      "actions": [
+        {
+          "name": "probe",
+          "label": "\u63a2\u6d4b URL",
+          "description": "\u53d1\u8d77\u4e00\u6b21 HTTP/HTTPS \u8bf7\u6c42\u5e76\u8fd4\u56de\u7ed3\u679c\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "timeout_seconds",
+          "label": "\u8d85\u65f6(\u79d2)",
+          "type": "number",
+          "default": 10
+        },
+        {
+          "key": "follow_redirects",
+          "label": "\u8ddf\u968f\u91cd\u5b9a\u5411",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "allow_private_network",
+          "label": "\u5141\u8bb8\u5185\u7f51\u5730\u5740",
+          "type": "switch",
+          "default": false
+        },
+        {
+          "key": "max_body_bytes",
+          "label": "\u54cd\u5e94\u7247\u6bb5\u5b57\u8282",
+          "type": "number",
+          "default": 2048
+        },
+        {
+          "key": "default_headers",
+          "label": "\u9ed8\u8ba4\u8bf7\u6c42\u5934",
+          "type": "textarea",
+          "default": "User-Agent: PTPatronus-PluginProbe/1.0"
+        }
+      ],
+      "resource_access": {
+        "net_hosts": [
+          "\u7528\u6237\u6307\u5b9a URL"
+        ]
+      },
+      "signature": "Pk7XAY9vxFKzZwevJXcQrmJQn8GJRHPoqLq9Ka1w0j6dY1kraPIkAMfiziixrEG1MENZYh25uY9nMM71Xy0sAQ==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "json-toolbox",
+      "name": "JSON \u5de5\u5177\u7bb1",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/json-toolbox-1.0.0.zip",
+      "sha256": "8b02921ace38cc96591334076c1a01ddfc1fbbbdbd93b7f10652c2e4aa737674",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u683c\u5f0f\u5316\u3001\u538b\u7f29\u3001\u53d6\u503c\u8def\u5f84\u4e0e JSON \u6821\u9a8c\u5de5\u5177\u3002",
+      "license": "MIT",
+      "keywords": [
+        "json"
+      ],
+      "permissions": [
+        "log:write"
+      ],
+      "actions": [
+        {
+          "name": "format",
+          "label": "\u683c\u5f0f\u5316",
+          "description": "\u7f8e\u5316 JSON \u6587\u672c\u3002"
+        },
+        {
+          "name": "minify",
+          "label": "\u538b\u7f29",
+          "description": "\u538b\u7f29 JSON \u6587\u672c\u3002"
+        },
+        {
+          "name": "get",
+          "label": "\u8def\u5f84\u53d6\u503c",
+          "description": "\u6309\u70b9\u8def\u5f84\u53d6\u503c\uff0c\u5982 a.b.0.c\u3002"
+        },
+        {
+          "name": "validate",
+          "label": "\u6821\u9a8c",
+          "description": "\u68c0\u67e5\u662f\u5426\u4e3a\u5408\u6cd5 JSON\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "indent",
+          "label": "\u7f29\u8fdb\u7a7a\u683c",
+          "type": "number",
+          "default": 2
+        }
+      ],
+      "signature": "YamD/P4Pjbjb7WoVqV1uIm6BUdvaIgSEVc/zvUpkUCCjGBZN174m0CTZtFvSh+0QoXXVxFrBgzP6EJ49wD6vBQ==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "keyword-alert",
+      "name": "\u5173\u952e\u8bcd\u544a\u8b66",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/keyword-alert-1.0.0.zip",
+      "sha256": "eaa686fe491954cccc82d0493fc15c947e8e1ea9e81c6ba8aeae61f055c76268",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.event.subscription",
+        "host.api.notice.write",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u76d1\u542c\u4e8b\u4ef6 payload\uff0c\u547d\u4e2d\u5173\u952e\u8bcd\u540e\u53d1\u9001\u901a\u77e5\u3002",
+      "license": "MIT",
+      "keywords": [
+        "alert",
+        "keyword"
+      ],
+      "permissions": [
+        "notice:write",
+        "log:write"
+      ],
+      "events": [
+        {
+          "type": "webhook",
+          "description": "Webhook"
+        },
+        {
+          "type": "plugin.test",
+          "description": "\u6d4b\u8bd5\u4e8b\u4ef6"
+        }
+      ],
+      "actions": [
+        {
+          "name": "test_match",
+          "label": "\u6d4b\u8bd5\u5339\u914d",
+          "description": "\u7528\u6837\u4f8b\u6587\u672c\u6d4b\u8bd5\u5173\u952e\u8bcd\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "event_types",
+          "label": "\u76d1\u542c\u4e8b\u4ef6",
+          "type": "textarea",
+          "default": "webhook,plugin.test"
+        },
+        {
+          "key": "keywords",
+          "label": "\u5173\u952e\u8bcd",
+          "type": "textarea",
+          "default": "error,\u5931\u8d25,\u5f02\u5e38"
+        },
+        {
+          "key": "fields",
+          "label": "\u68c0\u67e5\u5b57\u6bb5",
+          "type": "textarea",
+          "default": "",
+          "help": "\u7559\u7a7a\u68c0\u67e5\u6574\u4e2a payload"
+        },
+        {
+          "key": "case_sensitive",
+          "label": "\u533a\u5206\u5927\u5c0f\u5199",
+          "type": "switch",
+          "default": false
+        },
+        {
+          "key": "level",
+          "label": "\u901a\u77e5\u7ea7\u522b",
+          "type": "text",
+          "default": "warning"
+        }
+      ],
+      "signature": "nbCLKJ7FocWWQPkohxJcO1qJdrF8pnx7yIt8UiGaigx9MYqSM44TyjwYzAt6wBm/omg5cripIDpseY2bDoxzBA==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "notice-forwarder",
+      "name": "\u4e8b\u4ef6\u901a\u77e5\u6865",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/notice-forwarder-1.0.0.zip",
+      "sha256": "e89d567251414588c404720d336a86168ccc9db629aeece07ab5a9fa59ec7042",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.event.subscription",
+        "host.api.notice.write",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u5c06\u6307\u5b9a\u4e8b\u4ef6\u8f6c\u6210\u7ad9\u5185\u901a\u77e5\uff0c\u5e76\u590d\u7528\u7cfb\u7edf\u901a\u77e5\u901a\u9053\u5916\u53d1\u3002",
+      "license": "MIT",
+      "keywords": [
+        "notice"
+      ],
+      "permissions": [
+        "notice:write",
+        "log:write"
+      ],
+      "events": [
+        {
+          "type": "plugin.test",
+          "description": "\u6d4b\u8bd5\u4e8b\u4ef6"
+        },
+        {
+          "type": "webhook",
+          "description": "Webhook"
+        }
+      ],
+      "actions": [
+        {
+          "name": "send_test_notice",
+          "label": "\u53d1\u9001\u6d4b\u8bd5\u901a\u77e5",
+          "description": "\u53d1\u9001\u4e00\u6761\u6d4b\u8bd5\u901a\u77e5\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "event_types",
+          "label": "\u76d1\u542c\u4e8b\u4ef6",
+          "type": "textarea",
+          "default": "plugin.test"
+        },
+        {
+          "key": "title_prefix",
+          "label": "\u6807\u9898\u524d\u7f00",
+          "type": "text",
+          "default": "[\u63d2\u4ef6]"
+        },
+        {
+          "key": "level",
+          "label": "\u901a\u77e5\u7ea7\u522b",
+          "type": "select",
+          "default": "info",
+          "options": [
+            {
+              "label": "\u4fe1\u606f",
+              "value": "info"
+            },
+            {
+              "label": "\u8b66\u544a",
+              "value": "warning"
+            },
+            {
+              "label": "\u5371\u9669",
+              "value": "danger"
+            }
+          ]
+        },
+        {
+          "key": "include_payload",
+          "label": "\u9644\u5e26\u4e8b\u4ef6\u6570\u636e",
+          "type": "switch",
+          "default": false
+        }
+      ],
+      "signature": "3NiHgDUEuBe/I3qfxkwR3itaY63ZQ7qu8Sbob5pGarVzQKu4wi8qAHnahzaeIratuj2kEmEWisF01m+FSBkOCg==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "ptp-ai-subtitle",
+      "name": "AI\u5b57\u5e55\u751f\u6210",
+      "version": "0.1.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/ptp-ai-subtitle-0.1.0.zip",
+      "sha256": "560fb767d71b74044054abbe05912491028fed7733d72207a9488437338c7af6",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write",
+        "host.api.kv.read",
+        "host.api.kv.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u7528 faster-whisper \u4e3a\u89c6\u9891\u81ea\u52a8\u8f6c\u5f55\u751f\u6210\u5b57\u5e55\uff08.srt\uff09\uff0c\u53ef\u9009 OpenAI \u517c\u5bb9\u63a5\u53e3\u7ffb\u8bd1\u4e3a\u76ee\u6807\u8bed\u8a00\u3002\u9700\u8981\u5bbf\u4e3b Python \u73af\u5883 pip install -r requirements.txt\uff08\u542b faster-whisper\uff0c\u9996\u6b21\u4e0b\u8f7d\u6a21\u578b\uff09\u3002GPU \u52a0\u901f\u9700 CUDA \u73af\u5883\uff0c\u5426\u5219 CPU \u56de\u9000\u3002",
+      "license": "MIT",
+      "keywords": [
+        "subtitle",
+        "whisper",
+        "ai",
+        "transcribe"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write",
+        "kv:read",
+        "kv:write"
+      ],
+      "actions": [
+        {
+          "name": "transcribe",
+          "label": "\u8f6c\u5f55\u5355\u4e2a\u89c6\u9891",
+          "description": "\u5bf9\u7ed9\u5b9a\u89c6\u9891\u8def\u5f84\u7528 faster-whisper \u8f6c\u5f55\u751f\u6210\u540c\u540d .srt\uff08\u53ef\u9009\u7ffb\u8bd1\uff09\u3002\u53c2\u6570\uff1a{path}\u3002\u540e\u53f0\u6267\u884c\uff0c\u8fdb\u5ea6\u7528 status \u67e5\u8be2\u3002"
+        },
+        {
+          "name": "scan",
+          "label": "\u626b\u63cf\u8f6c\u5f55\u7f3a\u5931\u5b57\u5e55",
+          "description": "\u626b\u63cf\u914d\u7f6e\u7684\u89c6\u9891\u8def\u5f84\uff0c\u4e3a\u7f3a\u5c11 .srt \u7684\u89c6\u9891\u8f6c\u5f55\u751f\u6210\u5b57\u5e55\u3002\u7acb\u5373\u8fd4\u56de\uff0c\u540e\u53f0\u8dd1\u3002"
+        },
+        {
+          "name": "status",
+          "label": "\u67e5\u8be2\u8f6c\u5f55\u72b6\u6001",
+          "description": "\u8fd4\u56de\u540e\u53f0\u8f6c\u5f55\u4efb\u52a1\u7684\u8fd0\u884c\u72b6\u6001\u3001\u5f53\u524d\u6587\u4ef6\u4e0e\u8ba1\u6570\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "scan_paths",
+          "label": "\u626b\u63cf\u8def\u5f84",
+          "type": "textarea",
+          "default": "",
+          "help": "\u6bcf\u884c\u4e00\u4e2a\u76ee\u5f55\uff0c\u9012\u5f52\u626b\u63cf\u5176\u4e2d\u7684\u89c6\u9891\u6587\u4ef6\uff08scan \u52a8\u4f5c\u7528\uff09\u3002",
+          "group": "\u8f6c\u5f55"
+        },
+        {
+          "key": "model",
+          "label": "Whisper \u6a21\u578b",
+          "type": "select",
+          "default": "small",
+          "options": [
+            {
+              "value": "tiny",
+              "label": "tiny"
+            },
+            {
+              "value": "base",
+              "label": "base"
+            },
+            {
+              "value": "small",
+              "label": "small"
+            },
+            {
+              "value": "medium",
+              "label": "medium"
+            },
+            {
+              "value": "large-v3",
+              "label": "large-v3"
+            }
+          ],
+          "help": "\u8d8a\u5927\u8d8a\u51c6\u8d8a\u6162\uff1bsmall \u517c\u987e\u901f\u5ea6\u4e0e\u4e2d\u6587\u51c6\u786e\u7387\u3002",
+          "group": "\u8f6c\u5f55"
+        },
+        {
+          "key": "device",
+          "label": "\u8bbe\u5907",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "value": "auto",
+              "label": "auto\uff08\u81ea\u52a8\uff09"
+            },
+            {
+              "value": "cpu",
+              "label": "cpu"
+            },
+            {
+              "value": "cuda",
+              "label": "cuda"
+            }
+          ],
+          "help": "auto \u4f18\u5148 CUDA\uff0c\u65e0 GPU \u56de\u9000 CPU\u3002",
+          "group": "\u8f6c\u5f55"
+        },
+        {
+          "key": "language",
+          "label": "\u6e90\u8bed\u8a00",
+          "type": "text",
+          "default": "auto",
+          "help": "auto \u81ea\u52a8\u68c0\u6d4b\uff1b\u6216 zh/en/ja \u7b49\u6307\u5b9a\u3002",
+          "group": "\u8f6c\u5f55"
+        },
+        {
+          "key": "media_ext",
+          "label": "\u89c6\u9891\u6269\u5c55\u540d",
+          "type": "text",
+          "default": ".mp4,.mkv,.avi,.ts,.mov,.wmv,.flv,.m4v",
+          "group": "\u8f6c\u5f55"
+        },
+        {
+          "key": "translate_enabled",
+          "label": "\u542f\u7528\u7ffb\u8bd1",
+          "type": "switch",
+          "default": false,
+          "help": "\u8f6c\u5f55\u540e\u7528 OpenAI \u517c\u5bb9\u63a5\u53e3\u628a\u5b57\u5e55\u7ffb\u8bd1\u4e3a\u76ee\u6807\u8bed\u8a00\uff08\u53cc\u8bed\u6216\u66ff\u6362\uff09\u3002",
+          "group": "\u7ffb\u8bd1"
+        },
+        {
+          "key": "openai_base_url",
+          "label": "OpenAI \u517c\u5bb9\u63a5\u53e3",
+          "type": "text",
+          "default": "",
+          "help": "\u5982 https://api.openai.com/v1 \u6216\u81ea\u5efa / \u517c\u5bb9\u670d\u52a1\u3002",
+          "group": "\u7ffb\u8bd1"
+        },
+        {
+          "key": "openai_api_key",
+          "label": "API Key",
+          "type": "password",
+          "default": "",
+          "group": "\u7ffb\u8bd1"
+        },
+        {
+          "key": "openai_model",
+          "label": "\u7ffb\u8bd1\u6a21\u578b",
+          "type": "text",
+          "default": "gpt-4o-mini",
+          "group": "\u7ffb\u8bd1"
+        },
+        {
+          "key": "target_lang",
+          "label": "\u76ee\u6807\u8bed\u8a00",
+          "type": "text",
+          "default": "\u4e2d\u6587",
+          "help": "\u7ffb\u8bd1\u76ee\u6807\uff0c\u5982 \u4e2d\u6587/English\u3002",
+          "group": "\u7ffb\u8bd1"
+        },
+        {
+          "key": "bilingual",
+          "label": "\u53cc\u8bed\u5b57\u5e55",
+          "type": "switch",
+          "default": false,
+          "help": "\u5f00\u542f\u5219\u751f\u6210\u300c\u539f\u6587+\u8bd1\u6587\u300d\u53cc\u8bed\u5b57\u5e55\uff0c\u5426\u5219\u4ec5\u8bd1\u6587\u3002",
+          "group": "\u7ffb\u8bd1"
+        },
+        {
+          "key": "cron",
+          "label": "\u5b9a\u65f6\u8868\u8fbe\u5f0f",
+          "type": "text",
+          "default": "",
+          "help": "\u7559\u7a7a\u4e0d\u81ea\u52a8\u626b\u63cf\uff1b\u793a\u4f8b 0 3 * * * \u6bcf\u65e53\u70b9\u626b\u63cf\u8f6c\u5f55\u3002",
+          "group": "\u8c03\u5ea6"
+        }
+      ],
+      "contributes": {
+        "commands": [
+          {
+            "id": "ptp-ai-subtitle.transcribe",
+            "label": "AI\u5b57\u5e55\uff1a\u8f6c\u5f55\u89c6\u9891",
+            "action": "transcribe"
+          },
+          {
+            "id": "ptp-ai-subtitle.scan",
+            "label": "AI\u5b57\u5e55\uff1a\u626b\u63cf\u8f6c\u5f55",
+            "action": "scan"
+          }
+        ],
+        "menus": [
+          {
+            "location": "plugins/actions",
+            "command": "ptp-ai-subtitle.scan"
+          }
+        ]
+      },
+      "resource_access": {
+        "exec_binaries": [
+          "python"
+        ],
+        "fs_paths": [
+          "\u7528\u6237\u914d\u7f6e\u7684\u89c6\u9891\u626b\u63cf\u8def\u5f84\uff1b\u6a21\u578b\u7f13\u5b58 ~/.cache/whisper"
+        ],
+        "network": [
+          "huggingface.co\uff08\u9996\u6b21\u4e0b\u8f7d\u6a21\u578b\uff09",
+          "\u7528\u6237\u914d\u7f6e\u7684 OpenAI \u517c\u5bb9\u7ffb\u8bd1\u63a5\u53e3"
+        ]
+      },
+      "signature": "MnQtZCybRw7i+EL9k9LNRSGw12pRIqtlGfMzd2/Vjye1p3SWHmBJWxJJMM5S1QALPeEoxRJUNldhATWXFZwLAQ==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
       "id": "ptp-cd2-assistant",
       "name": "CloudDrive2\u52a9\u624b",
       "version": "0.1.0",
@@ -153,7 +1060,197 @@
         "website": "https://ptang.top",
         "verified": true
       },
-      "published_at": "2026-07-10T01:54:18Z"
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "ptp-custom-command",
+      "name": "\u81ea\u5b9a\u4e49\u547d\u4ee4",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/ptp-custom-command-1.0.0.zip",
+      "sha256": "3026d9a0a2d18a892779c0d165f18a280700ed1a9fb29b0aa8452617c1a22387",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u6309\u884c\u914d\u7f6e\u672c\u5730\u547d\u4ee4\u5e76\u5b9a\u65f6/\u624b\u52a8\u6267\u884c\uff08\u5de5\u4f5c\u76ee\u5f55\u4e0e\u8d85\u65f6\u53ef\u914d\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "command",
+        "shell"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write"
+      ],
+      "actions": [
+        {
+          "name": "run",
+          "label": "\u8fd0\u884c\u5168\u90e8\u547d\u4ee4",
+          "description": "\u987a\u5e8f\u6267\u884c\u914d\u7f6e\u4e2d\u7684\u547d\u4ee4\u5217\u8868\u3002"
+        },
+        {
+          "name": "run_one",
+          "label": "\u8fd0\u884c\u5355\u6761",
+          "description": "input.index \u6307\u5b9a\u884c\u53f7\uff08\u4ece0\u5f00\u59cb\uff09\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "commands",
+          "label": "\u547d\u4ee4\u5217\u8868",
+          "type": "textarea",
+          "default": "",
+          "help": "\u6bcf\u884c\u4e00\u6761 shell \u547d\u4ee4"
+        },
+        {
+          "key": "workdir",
+          "label": "\u5de5\u4f5c\u76ee\u5f55",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "key": "timeout_seconds",
+          "label": "\u8d85\u65f6\u79d2",
+          "type": "number",
+          "default": 60
+        },
+        {
+          "key": "notify",
+          "label": "\u5b8c\u6210\u540e\u901a\u77e5",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "cron",
+          "label": "\u5b9a\u65f6",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "resource_access": {
+        "exec_binaries": [
+          "\u7528\u6237\u914d\u7f6e\u7684 shell \u547d\u4ee4"
+        ],
+        "fs_paths": [
+          "\u5de5\u4f5c\u76ee\u5f55"
+        ]
+      },
+      "signature": "MyHpanU5LdQd9+olLUaun6nNgXB68oPGfkqCDG7E7QexKpEjeZLxTB23QnbNZbKCRXBwEUoEOlZcONgnMNzZDg==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "ptp-drama-scrape",
+      "name": "\u77ed\u5267\u522e\u524a",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/ptp-drama-scrape-1.0.0.zip",
+      "sha256": "a635ba0fdf53f610d94364a327cc388c13f2f14e4ec6239f34eff3bc716e4c8d",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write",
+        "host.api.kv.read",
+        "host.api.kv.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u626b\u63cf\u77ed\u5267\u76ee\u5f55\uff0c\u8c03\u7528\u5bf8\u5149\u96c6\u7b49\u6e90\u8865\u9f50\u5143\u6570\u636e/\u5c01\u9762\uff08\u5f00\u6e90\u5e02\u573a\u7248\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "drama",
+        "scrape"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write",
+        "kv:read",
+        "kv:write"
+      ],
+      "actions": [
+        {
+          "name": "scan",
+          "label": "\u626b\u63cf\u522e\u524a",
+          "description": "\u540e\u53f0\u626b\u63cf\u914d\u7f6e\u76ee\u5f55\u5e76\u522e\u524a\u3002"
+        },
+        {
+          "name": "status",
+          "label": "\u72b6\u6001",
+          "description": "\u67e5\u8be2\u540e\u53f0\u4efb\u52a1\u3002"
+        },
+        {
+          "name": "scrape_one",
+          "label": "\u641c\u7d22\u5355\u90e8",
+          "description": "input.name \u641c\u7d22\u77ed\u5267\u5143\u6570\u636e\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "scan_paths",
+          "label": "\u626b\u63cf\u8def\u5f84",
+          "type": "textarea",
+          "default": ""
+        },
+        {
+          "key": "cunguangji_base",
+          "label": "\u5bf8\u5149\u96c6 API",
+          "type": "text",
+          "default": "https://api.cunguangji.com"
+        },
+        {
+          "key": "cunguangji_key",
+          "label": "API Key",
+          "type": "password",
+          "default": ""
+        },
+        {
+          "key": "write_nfo",
+          "label": "\u5199 NFO",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "cron",
+          "label": "\u5b9a\u65f6",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "resource_access": {
+        "fs_paths": [
+          "\u626b\u63cf\u76ee\u5f55"
+        ],
+        "net_hosts": [
+          "\u5bf8\u5149\u96c6 API"
+        ]
+      },
+      "signature": "umzZBoDd1Pzk0fJfuR29oZizQk/c/qeHfgn+Is4ZcC8zRlzq/TuVrtUIesL98jlDAMW1Yb6dPQgxDbXbTN2NDg==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
     },
     {
       "id": "ptp-ffmpeg-thumb",
@@ -276,7 +1373,88 @@
         "website": "https://ptang.top",
         "verified": true
       },
-      "published_at": "2026-07-10T01:54:19Z"
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "ptp-forum-signin",
+      "name": "\u8bba\u575b\u7b7e\u5230",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/ptp-forum-signin-1.0.0.zip",
+      "sha256": "1dbfa9040e9147c8df2e0a6ccc45a73bf5aa04d61201c5305ab84dbe0aa424e9",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write",
+        "host.api.kv.read",
+        "host.api.kv.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u5bf9\u5df2\u914d\u7f6e\u7ad9\u70b9\u6267\u884c\u8bba\u575b\u7b7e\u5230\uff08\u5f00\u6e90\u5e02\u573a\u7248\uff0c\u652f\u6301\u901a\u7528 URL \u7b7e\u5230\u6a21\u677f\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "forum",
+        "signin"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write",
+        "kv:read",
+        "kv:write"
+      ],
+      "actions": [
+        {
+          "name": "run",
+          "label": "\u7acb\u5373\u7b7e\u5230",
+          "description": "\u6267\u884c\u5168\u90e8\u7ad9\u70b9\u7b7e\u5230\u3002"
+        },
+        {
+          "name": "labels",
+          "label": "\u652f\u6301\u5217\u8868",
+          "description": "\u8fd4\u56de\u5185\u7f6e\u7ad9\u70b9\u6807\u7b7e\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "sites",
+          "label": "\u7b7e\u5230\u7ad9\u70b9",
+          "type": "textarea",
+          "default": "",
+          "help": "\u6bcf\u884c name|url|cookie \u6216 name|url"
+        },
+        {
+          "key": "cron",
+          "label": "\u5b9a\u65f6",
+          "type": "text",
+          "default": "0 8 * * *"
+        },
+        {
+          "key": "notify",
+          "label": "\u901a\u77e5",
+          "type": "switch",
+          "default": true
+        }
+      ],
+      "resource_access": {
+        "net_hosts": [
+          "\u914d\u7f6e\u7684\u8bba\u575b\u7ad9\u70b9"
+        ]
+      },
+      "signature": "tunXHcd3Kt7Qc1dIBIflRpIgoFFr4hHUxgx/HJ8Ey6++z8DI4Dw7zaEWTR4CLgO8PTA2aa/iIDi/HICDn5fLCA==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
     },
     {
       "id": "ptp-library-scrape",
@@ -408,7 +1586,85 @@
         "website": "https://ptang.top",
         "verified": true
       },
-      "published_at": "2026-07-10T01:54:20Z"
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "ptp-mcp-server",
+      "name": "MCP \u670d\u52a1\u7aef",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/ptp-mcp-server-1.0.0.zip",
+      "sha256": "6f66b82f36f4393675053f83ce6663a82335d8c07e3c069d32111e442537024f",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "MCP \u76f8\u5173\u914d\u7f6e\u4e0e\u5de5\u5177\u6e05\u5355\u67e5\u770b\uff08\u5b8c\u6574 MCP HTTP \u7aef\u70b9\u4ecd\u7531\u5bbf\u4e3b\u63d0\u4f9b\uff1b\u672c\u63d2\u4ef6\u627f\u63a5\u914d\u7f6e\u4e0e\u53ef\u89c2\u6d4b\u52a8\u4f5c\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "ai"
+      ],
+      "permissions": [
+        "log:write"
+      ],
+      "actions": [
+        {
+          "name": "tools",
+          "label": "\u67e5\u770b\u5de5\u5177\u6e05\u5355",
+          "description": "\u8fd4\u56de\u5efa\u8bae\u66b4\u9732\u7684\u5de5\u5177\u540d\uff08\u5b9e\u9645\u4ee5\u5bbf\u4e3b /api/v1/mcp \u4e3a\u51c6\uff09\u3002"
+        },
+        {
+          "name": "status",
+          "label": "\u72b6\u6001",
+          "description": "\u8fd4\u56de\u63d2\u4ef6\u914d\u7f6e\u6458\u8981\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "enabled",
+          "label": "\u542f\u7528 MCP",
+          "type": "switch",
+          "default": false
+        },
+        {
+          "key": "token",
+          "label": "\u8bbf\u95ee\u4ee4\u724c",
+          "type": "password",
+          "default": ""
+        },
+        {
+          "key": "allow_tools",
+          "label": "\u5141\u8bb8\u5de5\u5177",
+          "type": "textarea",
+          "default": "site.*,search.*,downloader.*",
+          "help": "\u901a\u914d\u5217\u8868\uff0c\u4f9b\u5bbf\u4e3b SettingsGetter \u8bfb\u53d6"
+        }
+      ],
+      "contributes": {
+        "commands": [
+          {
+            "id": "ptp-mcp-server.tools",
+            "label": "MCP\uff1a\u67e5\u770b\u5de5\u5177\u6e05\u5355",
+            "action": "tools"
+          }
+        ]
+      },
+      "signature": "G9sf5ndSPlZtDqRtYypce1gbcb5aGL/TaQyUKzliI8okcsCDIqdbJxvA58+em7o7zTXekvwXzxAXppVl9WOgCQ==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
     },
     {
       "id": "ptp-miwifi",
@@ -698,9 +1954,496 @@
         "website": "https://ptang.top",
         "verified": true
       },
-      "published_at": "2026-07-27T12:10:55Z",
       "changelog": [
-        "v0.2.2: AX9000(ra81) tri-band profile, port mapping UI, mesh/model actions"
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "ptp-playlet-category",
+      "name": "\u77ed\u5267\u81ea\u52a8\u5206\u7c7b",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/ptp-playlet-category-1.0.0.zip",
+      "sha256": "8dbf65631d0534e2642d479140fbc055c32ec44bf223f5ee304e146f0db85c56",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u626b\u63cf\u76ee\u5f55\uff0c\u6309\u96c6\u6570/\u547d\u540d\u89c4\u5219\u5c06\u77ed\u5267\u79fb\u52a8\u5230\u5206\u7c7b\u6587\u4ef6\u5939\u3002",
+      "license": "MIT",
+      "keywords": [
+        "playlet",
+        "category"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write"
+      ],
+      "actions": [
+        {
+          "name": "scan",
+          "label": "\u7acb\u5373\u626b\u63cf\u5206\u7c7b",
+          "description": "\u540e\u53f0\u626b\u63cf\u5e76\u79fb\u52a8\u3002"
+        },
+        {
+          "name": "status",
+          "label": "\u72b6\u6001",
+          "description": "\u67e5\u8be2\u4efb\u52a1\u72b6\u6001\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "scan_paths",
+          "label": "\u626b\u63cf\u8def\u5f84",
+          "type": "textarea",
+          "default": ""
+        },
+        {
+          "key": "target_root",
+          "label": "\u5206\u7c7b\u6839\u76ee\u5f55",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "key": "min_episodes",
+          "label": "\u77ed\u5267\u6700\u5c0f\u96c6\u6570",
+          "type": "number",
+          "default": 20
+        },
+        {
+          "key": "dry_run",
+          "label": "\u4ec5\u6f14\u7ec3",
+          "type": "switch",
+          "default": false
+        },
+        {
+          "key": "cron",
+          "label": "\u5b9a\u65f6",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "resource_access": {
+        "fs_paths": [
+          "\u626b\u63cf/\u76ee\u6807\u76ee\u5f55"
+        ]
+      },
+      "signature": "VWOcZ+ribATSO4V+K/0BKQ9mJq8fHhfitHSUfZclekCjH+Id/8C8Aqz6yRwdYunFUaAUfHN9hzU30TVupxcNDQ==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "ptp-plex-suite",
+      "name": "Plex \u5957\u4ef6",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/ptp-plex-suite-1.0.0.zip",
+      "sha256": "de3e8b33e5b9788960be0e063116562eaed8ebcda840c0a85e6ed0910eb23b42",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u8fde\u63a5 Plex\uff0c\u5237\u65b0\u5e93/\u5e94\u7528\u57fa\u7840\u7ef4\u62a4\u4efb\u52a1\uff08\u5f00\u6e90\u5e02\u573a\u7248\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "plex"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write"
+      ],
+      "actions": [
+        {
+          "name": "apply",
+          "label": "\u7acb\u5373\u5e94\u7528",
+          "description": "\u6267\u884c\u5237\u65b0\u4e0e\u68c0\u67e5\u3002"
+        },
+        {
+          "name": "libraries",
+          "label": "\u5217\u51fa\u5a92\u4f53\u5e93",
+          "description": "\u8bfb\u53d6 Plex libraries\u3002"
+        },
+        {
+          "name": "status",
+          "label": "\u8fde\u63a5\u6d4b\u8bd5",
+          "description": "\u6d4b\u8bd5 Plex \u8fde\u901a\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "base_url",
+          "label": "Plex \u5730\u5740",
+          "type": "text",
+          "default": "http://127.0.0.1:32400"
+        },
+        {
+          "key": "token",
+          "label": "X-Plex-Token",
+          "type": "password",
+          "default": ""
+        },
+        {
+          "key": "refresh_on_apply",
+          "label": "\u5e94\u7528\u65f6\u5237\u65b0\u5e93",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "cron",
+          "label": "\u5b9a\u65f6",
+          "type": "text",
+          "default": "0 4 * * *"
+        }
+      ],
+      "resource_access": {
+        "net_hosts": [
+          "Plex \u670d\u52a1\u5668"
+        ]
+      },
+      "signature": "c4EtiqpBPFuYinbQBnKk2LjzQqzKG6QsSfxt0a5gj5Adn3dUcLtd6UqOGXCqCaqretcABO2cXwvbPUMY2DcFBg==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "text-toolbox",
+      "name": "\u6587\u672c\u5de5\u5177\u7bb1",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/text-toolbox-1.0.0.zip",
+      "sha256": "2c7a57f917d7a719c91c0643e0d569178b5750fe22c6e23212110d7fffc8fd74",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u5e38\u7528\u6587\u672c\u5904\u7406\uff1a\u7edf\u8ba1\u3001\u5927\u5c0f\u5199\u3001\u66ff\u6362\u3001\u5206\u5272\u3001\u53bb\u91cd\u3001\u54c8\u5e0c\u3002",
+      "license": "MIT",
+      "keywords": [
+        "text"
+      ],
+      "permissions": [
+        "log:write"
+      ],
+      "actions": [
+        {
+          "name": "stats",
+          "label": "\u7edf\u8ba1",
+          "description": "\u5b57\u6570/\u884c\u6570/\u8bcd\u6570\u3002"
+        },
+        {
+          "name": "transform",
+          "label": "\u53d8\u6362",
+          "description": "upper/lower/title/strip\u3002"
+        },
+        {
+          "name": "replace",
+          "label": "\u66ff\u6362",
+          "description": "\u67e5\u627e\u66ff\u6362\u3002"
+        },
+        {
+          "name": "split_unique",
+          "label": "\u5206\u5272\u53bb\u91cd",
+          "description": "\u6309\u5206\u9694\u7b26\u5206\u5272\u5e76\u53bb\u91cd\u3002"
+        },
+        {
+          "name": "hash",
+          "label": "\u54c8\u5e0c",
+          "description": "md5/sha1/sha256\u3002"
+        }
+      ],
+      "signature": "dfSVNMtgefat/kWrYnzqgvmaEDfuBxtF+ZzUwV2RZKVjgqyQMJDr1f1hg4bfjz0XZ6romP1kqexv/s1p5ZXtAA==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "twofa-helper",
+      "name": "\u4e24\u6b65\u9a8c\u8bc1\u52a9\u624b",
+      "version": "1.2.7",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/twofa-helper-1.2.7.zip",
+      "sha256": "06656e2a22acb9e776de35826e817208087e3c4fda45482ba05ac8c33636b76f",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u57fa\u4e8e Base32 \u5bc6\u94a5\u751f\u6210 TOTP \u9a8c\u8bc1\u7801\uff08\u8fc1\u79fb\u81ea MoviePilot\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "2fa",
+        "totp",
+        "otp"
+      ],
+      "permissions": [
+        "log:write"
+      ],
+      "actions": [
+        {
+          "name": "generate",
+          "label": "\u751f\u6210\u9a8c\u8bc1\u7801",
+          "description": "\u4e3a\u914d\u7f6e/\u8f93\u5165\u7684 secret \u751f\u6210\u5f53\u524d TOTP\u3002"
+        },
+        {
+          "name": "list",
+          "label": "\u5217\u51fa\u8d26\u6237",
+          "description": "\u5217\u51fa\u5df2\u914d\u7f6e\u8d26\u6237\uff08\u4e0d\u542b secret\uff09\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "accounts",
+          "label": "\u8d26\u6237\u5217\u8868",
+          "type": "textarea",
+          "default": "",
+          "help": "\u6bcf\u884c name|BASE32_SECRET \u6216 otpauth uri"
+        }
+      ],
+      "signature": "DIHtO5lRxodrzq3f3o9OpjpJzDr1jJPl1r5XWku8KguvSCTrKN3JKkjFKJZVfShVZWS9CiTr+LBuLRbdz4C2Aw==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "webhook-transformer",
+      "name": "Webhook \u5b57\u6bb5\u8f6c\u6362\u5668",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/webhook-transformer-1.0.0.zip",
+      "sha256": "2826b05d8d907339b1a84d5269e1e0087786dc9045c0c90fdbfad2c9865773b9",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.event.subscription",
+        "host.api.notice.write",
+        "host.api.log.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u76d1\u542c Webhook \u4e8b\u4ef6\uff0c\u6309\u6620\u5c04\u89c4\u5219\u63d0\u53d6\u5b57\u6bb5\u5e76\u8f6c\u53d1\u4e3a\u901a\u77e5\u6216\u65b0\u4e8b\u4ef6\u3002",
+      "license": "MIT",
+      "keywords": [
+        "webhook"
+      ],
+      "permissions": [
+        "notice:write",
+        "log:write"
+      ],
+      "events": [
+        {
+          "type": "webhook",
+          "description": "\u8fdb\u7ad9 Webhook"
+        }
+      ],
+      "actions": [
+        {
+          "name": "preview",
+          "label": "\u9884\u89c8\u6620\u5c04",
+          "description": "\u7528\u6837\u4f8b payload \u9884\u89c8\u6620\u5c04\u7ed3\u679c\u3002"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "event_types",
+          "label": "\u76d1\u542c\u4e8b\u4ef6",
+          "type": "textarea",
+          "default": "webhook"
+        },
+        {
+          "key": "mappings",
+          "label": "\u5b57\u6bb5\u6620\u5c04",
+          "type": "textarea",
+          "default": "title=title\\nbody=message",
+          "help": "\u6bcf\u884c target=source.path"
+        },
+        {
+          "key": "emit_event",
+          "label": "\u8f6c\u53d1\u4e8b\u4ef6\u7c7b\u578b",
+          "type": "text",
+          "default": "",
+          "help": "\u975e\u7a7a\u5219 publish \u8be5\u4e8b\u4ef6"
+        },
+        {
+          "key": "send_notice",
+          "label": "\u53d1\u9001\u901a\u77e5",
+          "type": "switch",
+          "default": true
+        }
+      ],
+      "signature": "15OZDmImTykWeovZbYEXgXLc7udpr7KvbOdShWrD9rhS0jqfotTMACVTTMpPYJOMPN4laQlyRGecNIyhyvN8DA==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
+      ]
+    },
+    {
+      "id": "xiaomi-router",
+      "name": "\u5c0f\u7c73\u8def\u7531\u5668\u76d1\u63a7",
+      "version": "1.0.0",
+      "api_version": "1",
+      "runtime": "external-http",
+      "archive": "archives/xiaomi-router-1.0.0.zip",
+      "sha256": "0124acff3b97cafa9ff51a7cd4a43da3db6fe86cc05d142c2f110f5c288af981",
+      "app_version": ">=0.1.0",
+      "host_capabilities": [
+        "host.runtime.external-http.command",
+        "host.schedule.cron",
+        "host.api.log.write",
+        "host.api.notice.write"
+      ],
+      "author": "PTPatronus Community",
+      "description": "\u767b\u5f55\u5c0f\u7c73\u8def\u7531\u5668\uff0c\u67e5\u770b\u72b6\u6001\u5e76\u7ba1\u7406\u7aef\u53e3\u6620\u5c04\uff08\u5f00\u6e90\u5e02\u573a\u7248\uff1b\u5b8c\u6574\u589e\u5f3a\u89c1 ptp-miwifi\uff09\u3002",
+      "license": "MIT",
+      "keywords": [
+        "xiaomi",
+        "router"
+      ],
+      "permissions": [
+        "log:write",
+        "notice:write"
+      ],
+      "actions": [
+        {
+          "name": "status",
+          "label": "\u5237\u65b0\u72b6\u6001",
+          "description": "\u767b\u5f55\u5e76\u8bfb\u53d6\u8bbe\u5907/\u7cfb\u7edf\u72b6\u6001\u3002"
+        },
+        {
+          "name": "port_list",
+          "label": "\u7aef\u53e3\u6620\u5c04\u5217\u8868",
+          "description": "\u8bfb\u53d6\u7aef\u53e3\u6620\u5c04\u3002"
+        },
+        {
+          "name": "port_add",
+          "label": "\u6dfb\u52a0\u7aef\u53e3\u6620\u5c04",
+          "description": "name/proto/sport/ip/dport"
+        },
+        {
+          "name": "port_delete",
+          "label": "\u5220\u9664\u7aef\u53e3\u6620\u5c04",
+          "description": "\u6309\u5916\u90e8\u7aef\u53e3\u5220\u9664"
+        },
+        {
+          "name": "quick_toggle",
+          "label": "\u5feb\u6377\u5207\u6362",
+          "description": "\u6309\u9884\u8bbe\u589e\u5220\u6620\u5c04"
+        }
+      ],
+      "config_schema": [
+        {
+          "key": "router_url",
+          "label": "\u8def\u7531\u5668\u5730\u5740",
+          "type": "text",
+          "default": "http://192.168.31.1"
+        },
+        {
+          "key": "password",
+          "label": "\u767b\u5f55\u5bc6\u7801",
+          "type": "password",
+          "default": ""
+        },
+        {
+          "key": "timeout_seconds",
+          "label": "\u8d85\u65f6",
+          "type": "number",
+          "default": 10
+        },
+        {
+          "key": "quick_name",
+          "label": "\u5feb\u6377\u89c4\u5219\u540d",
+          "type": "text",
+          "default": "ptp-quick"
+        },
+        {
+          "key": "quick_proto",
+          "label": "\u5feb\u6377\u534f\u8bae",
+          "type": "text",
+          "default": "tcp"
+        },
+        {
+          "key": "quick_sport",
+          "label": "\u5feb\u6377\u5916\u90e8\u7aef\u53e3",
+          "type": "number",
+          "default": 8000
+        },
+        {
+          "key": "quick_ip",
+          "label": "\u5feb\u6377\u5185\u7f51IP",
+          "type": "text",
+          "default": ""
+        },
+        {
+          "key": "quick_dport",
+          "label": "\u5feb\u6377\u5185\u90e8\u7aef\u53e3",
+          "type": "number",
+          "default": 8000
+        },
+        {
+          "key": "cron_status",
+          "label": "\u5b9a\u65f6\u5237\u65b0",
+          "type": "text",
+          "default": ""
+        }
+      ],
+      "resource_access": {
+        "net_hosts": [
+          "\u5c0f\u7c73\u8def\u7531\u5668\u7ba1\u7406\u5730\u5740"
+        ]
+      },
+      "signature": "XLKROI4I0eECnsHGD19AjfNZ7bOnQjTQgYR+1hfQUvgLN/zZA2rGjomAKIgXQIx7FDCPUEPjavPWUEuxBP43BA==",
+      "publisher": {
+        "id": "ptpatronus",
+        "name": "PTPatronus Official",
+        "website": "https://ptang.top",
+        "verified": true
+      },
+      "changelog": [
+        "migrated from PTPatronus built-in to open market"
       ]
     }
   ]

@@ -1,0 +1,40 @@
+{
+  "id": "cron-helper",
+  "name": "Cron 助手",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/cron-helper-1.0.0.zip",
+  "sha256": "9abb4b51237263edfca8dc51abd2b27d6843bda4dbb688e5d286d4b0eb479dee",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "校验 Cron 表达式并预览接下来若干次执行时间。",
+  "license": "MIT",
+  "keywords": [
+    "cron"
+  ],
+  "permissions": [
+    "log:write"
+  ],
+  "actions": [
+    {
+      "name": "next_runs",
+      "label": "下次执行时间",
+      "description": "按标准 5 段 Cron 预览执行时间。"
+    }
+  ],
+  "signature": "bcYGMc0bXC7PJPv9It0/zhTg079LfphyyMxvtYn2fwf4wM+xjbUicGOfJ9nmGzZFRd/vvya+L3bFkdJfCPr4AA==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

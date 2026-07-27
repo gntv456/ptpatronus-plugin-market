@@ -1,0 +1,6 @@
+# AI字幕生成插件依赖
+# 安装：pip install -r requirements.txt
+# 首次转录会自动下载 Whisper 模型到 ~/.cache/whisper（tiny~g）
+faster-whisper>=1.0.0
+# CUDA 加速可选（CPU 环境无需安装；onnxruntime-gpu 由 faster-whisper 拉起）
+# openai 兼容翻译走标准库 urllib，无需额外依赖

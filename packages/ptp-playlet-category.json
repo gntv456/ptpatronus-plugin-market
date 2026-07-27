@@ -1,0 +1,86 @@
+{
+  "id": "ptp-playlet-category",
+  "name": "短剧自动分类",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/ptp-playlet-category-1.0.0.zip",
+  "sha256": "8dbf65631d0534e2642d479140fbc055c32ec44bf223f5ee304e146f0db85c56",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.schedule.cron",
+    "host.api.log.write",
+    "host.api.notice.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "扫描目录，按集数/命名规则将短剧移动到分类文件夹。",
+  "license": "MIT",
+  "keywords": [
+    "playlet",
+    "category"
+  ],
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "actions": [
+    {
+      "name": "scan",
+      "label": "立即扫描分类",
+      "description": "后台扫描并移动。"
+    },
+    {
+      "name": "status",
+      "label": "状态",
+      "description": "查询任务状态。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "scan_paths",
+      "label": "扫描路径",
+      "type": "textarea",
+      "default": ""
+    },
+    {
+      "key": "target_root",
+      "label": "分类根目录",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "min_episodes",
+      "label": "短剧最小集数",
+      "type": "number",
+      "default": 20
+    },
+    {
+      "key": "dry_run",
+      "label": "仅演练",
+      "type": "switch",
+      "default": false
+    },
+    {
+      "key": "cron",
+      "label": "定时",
+      "type": "text",
+      "default": ""
+    }
+  ],
+  "resource_access": {
+    "fs_paths": [
+      "扫描/目标目录"
+    ]
+  },
+  "signature": "VWOcZ+ribATSO4V+K/0BKQ9mJq8fHhfitHSUfZclekCjH+Id/8C8Aqz6yRwdYunFUaAUfHN9hzU30TVupxcNDQ==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

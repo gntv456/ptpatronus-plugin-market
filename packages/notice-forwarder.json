@@ -1,0 +1,93 @@
+{
+  "id": "notice-forwarder",
+  "name": "事件通知桥",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/notice-forwarder-1.0.0.zip",
+  "sha256": "e89d567251414588c404720d336a86168ccc9db629aeece07ab5a9fa59ec7042",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.event.subscription",
+    "host.api.notice.write",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "将指定事件转成站内通知，并复用系统通知通道外发。",
+  "license": "MIT",
+  "keywords": [
+    "notice"
+  ],
+  "permissions": [
+    "notice:write",
+    "log:write"
+  ],
+  "events": [
+    {
+      "type": "plugin.test",
+      "description": "测试事件"
+    },
+    {
+      "type": "webhook",
+      "description": "Webhook"
+    }
+  ],
+  "actions": [
+    {
+      "name": "send_test_notice",
+      "label": "发送测试通知",
+      "description": "发送一条测试通知。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "event_types",
+      "label": "监听事件",
+      "type": "textarea",
+      "default": "plugin.test"
+    },
+    {
+      "key": "title_prefix",
+      "label": "标题前缀",
+      "type": "text",
+      "default": "[插件]"
+    },
+    {
+      "key": "level",
+      "label": "通知级别",
+      "type": "select",
+      "default": "info",
+      "options": [
+        {
+          "label": "信息",
+          "value": "info"
+        },
+        {
+          "label": "警告",
+          "value": "warning"
+        },
+        {
+          "label": "危险",
+          "value": "danger"
+        }
+      ]
+    },
+    {
+      "key": "include_payload",
+      "label": "附带事件数据",
+      "type": "switch",
+      "default": false
+    }
+  ],
+  "signature": "3NiHgDUEuBe/I3qfxkwR3itaY63ZQ7qu8Sbob5pGarVzQKu4wi8qAHnahzaeIratuj2kEmEWisF01m+FSBkOCg==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

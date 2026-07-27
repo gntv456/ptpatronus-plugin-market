@@ -1,0 +1,65 @@
+{
+  "id": "event-audit",
+  "name": "事件审计",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/event-audit-1.0.0.zip",
+  "sha256": "5a8473bf20975d68dfa391fe5351bd12ec46685e9c5cbdfea723ec82ea85a14c",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.event.subscription",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "记录插件事件总线中的关键事件，便于排查 Webhook、测试事件和后续业务事件。",
+  "license": "MIT",
+  "keywords": [
+    "event",
+    "audit"
+  ],
+  "permissions": [
+    "log:write"
+  ],
+  "events": [
+    {
+      "type": "plugin.test",
+      "description": "测试事件"
+    },
+    {
+      "type": "webhook",
+      "description": "Webhook"
+    }
+  ],
+  "actions": [
+    {
+      "name": "echo",
+      "label": "回显输入",
+      "description": "返回提交的 JSON。"
+    },
+    {
+      "name": "emit_test_event",
+      "label": "发出测试事件",
+      "description": "发布 plugin.test。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "include_payload",
+      "label": "记录事件数据",
+      "type": "switch",
+      "default": true
+    }
+  ],
+  "signature": "A71AWml4VC/BD3rv+l08MVMhdsl/99C3tt9EoXoqULHJxM1xCU1ccEgTreO7+/G8oWd97BqwJ5sE/9OoJQfdDw==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

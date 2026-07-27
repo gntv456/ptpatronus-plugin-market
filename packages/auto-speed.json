@@ -1,0 +1,75 @@
+{
+  "id": "auto-speed",
+  "name": "网络测速",
+  "version": "1.1.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/auto-speed-1.1.0.zip",
+  "sha256": "9f1be95d365a148bf1ad8f6e2f7773888bbfed125e4c47673e8833f931bdc7d5",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.schedule.cron",
+    "host.api.log.write",
+    "host.api.notice.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "简易下载测速（迁移自 MoviePilot auto-speed）。",
+  "license": "MIT",
+  "keywords": [
+    "speedtest",
+    "network"
+  ],
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "actions": [
+    {
+      "name": "run_speedtest",
+      "label": "开始测速",
+      "description": "下载测试文件并估算速度。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "test_url",
+      "label": "测试文件 URL",
+      "type": "text",
+      "default": "https://speed.cloudflare.com/__down?bytes=25000000"
+    },
+    {
+      "key": "timeout_seconds",
+      "label": "超时",
+      "type": "number",
+      "default": 60
+    },
+    {
+      "key": "cron_speedtest",
+      "label": "定时",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "notify",
+      "label": "通知结果",
+      "type": "switch",
+      "default": true
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "测速 URL"
+    ]
+  },
+  "signature": "d5OtXxGIPs7TuEP652JF8qAd/W6n0M1DdqbOSHlVH7yIsQux2Ktl+EoTz49kFIAD7eOdc5n/70vhZHIgV7gjCw==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

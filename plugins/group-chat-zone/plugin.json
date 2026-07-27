@@ -1,0 +1,96 @@
+{
+  "id": "group-chat-zone",
+  "name": "群聊区",
+  "version": "3.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "按站点配置定时发送群聊/喊话消息（开源市场通用版）。",
+  "license": "MIT",
+  "keywords": [
+    "shout",
+    "groupchat"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "run_main",
+      "label": "主任务",
+      "description": "发送主消息列表。"
+    },
+    {
+      "name": "run_zm",
+      "label": "织梦任务",
+      "description": "发送织梦独立消息。"
+    },
+    {
+      "name": "preview",
+      "label": "预览配置",
+      "description": "查看将要发送的目标。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "targets",
+      "label": "目标",
+      "type": "textarea",
+      "default": "",
+      "help": "每行 name|post_url|cookie|message"
+    },
+    {
+      "key": "zm_targets",
+      "label": "织梦目标",
+      "type": "textarea",
+      "default": ""
+    },
+    {
+      "key": "cron",
+      "label": "主定时",
+      "type": "text",
+      "default": "0 9 * * *"
+    },
+    {
+      "key": "zm_cron",
+      "label": "织梦定时",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "notify",
+      "label": "通知",
+      "type": "switch",
+      "default": true
+    }
+  ],
+  "schedule": [
+    {
+      "id": "main",
+      "label": "主喊话任务",
+      "action": "run_main",
+      "cron_config_key": "cron"
+    },
+    {
+      "id": "zm",
+      "label": "织梦独立任务",
+      "action": "run_zm",
+      "cron_config_key": "zm_cron"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "站点群聊接口"
+    ]
+  }
+}

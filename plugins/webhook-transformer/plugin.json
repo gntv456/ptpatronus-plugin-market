@@ -1,0 +1,66 @@
+{
+  "id": "webhook-transformer",
+  "name": "Webhook 字段转换器",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "监听 Webhook 事件，按映射规则提取字段并转发为通知或新事件。",
+  "license": "MIT",
+  "keywords": [
+    "webhook"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "notice:write",
+    "log:write"
+  ],
+  "events": [
+    {
+      "type": "webhook",
+      "description": "进站 Webhook"
+    }
+  ],
+  "actions": [
+    {
+      "name": "preview",
+      "label": "预览映射",
+      "description": "用样例 payload 预览映射结果。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "event_types",
+      "label": "监听事件",
+      "type": "textarea",
+      "default": "webhook"
+    },
+    {
+      "key": "mappings",
+      "label": "字段映射",
+      "type": "textarea",
+      "default": "title=title\\nbody=message",
+      "help": "每行 target=source.path"
+    },
+    {
+      "key": "emit_event",
+      "label": "转发事件类型",
+      "type": "text",
+      "default": "",
+      "help": "非空则 publish 该事件"
+    },
+    {
+      "key": "send_notice",
+      "label": "发送通知",
+      "type": "switch",
+      "default": true
+    }
+  ]
+}

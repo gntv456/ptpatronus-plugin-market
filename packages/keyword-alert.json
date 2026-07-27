@@ -1,0 +1,87 @@
+{
+  "id": "keyword-alert",
+  "name": "关键词告警",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/keyword-alert-1.0.0.zip",
+  "sha256": "eaa686fe491954cccc82d0493fc15c947e8e1ea9e81c6ba8aeae61f055c76268",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.event.subscription",
+    "host.api.notice.write",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "监听事件 payload，命中关键词后发送通知。",
+  "license": "MIT",
+  "keywords": [
+    "alert",
+    "keyword"
+  ],
+  "permissions": [
+    "notice:write",
+    "log:write"
+  ],
+  "events": [
+    {
+      "type": "webhook",
+      "description": "Webhook"
+    },
+    {
+      "type": "plugin.test",
+      "description": "测试事件"
+    }
+  ],
+  "actions": [
+    {
+      "name": "test_match",
+      "label": "测试匹配",
+      "description": "用样例文本测试关键词。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "event_types",
+      "label": "监听事件",
+      "type": "textarea",
+      "default": "webhook,plugin.test"
+    },
+    {
+      "key": "keywords",
+      "label": "关键词",
+      "type": "textarea",
+      "default": "error,失败,异常"
+    },
+    {
+      "key": "fields",
+      "label": "检查字段",
+      "type": "textarea",
+      "default": "",
+      "help": "留空检查整个 payload"
+    },
+    {
+      "key": "case_sensitive",
+      "label": "区分大小写",
+      "type": "switch",
+      "default": false
+    },
+    {
+      "key": "level",
+      "label": "通知级别",
+      "type": "text",
+      "default": "warning"
+    }
+  ],
+  "signature": "nbCLKJ7FocWWQPkohxJcO1qJdrF8pnx7yIt8UiGaigx9MYqSM44TyjwYzAt6wBm/omg5cripIDpseY2bDoxzBA==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

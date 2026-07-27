@@ -1,0 +1,91 @@
+{
+  "id": "cloudflare-subscribe",
+  "name": "Cloudflare订阅",
+  "version": "1.0.5",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/cloudflare-subscribe-1.0.5.zip",
+  "sha256": "95d175b5acb0602873daacff22a2eb75ee2512a5d2509043c97d590e41e3d245",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.schedule.cron",
+    "host.api.log.write",
+    "host.api.notice.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "定时拉取订阅源并更新本地 hosts 片段（迁移自 MoviePilot）。",
+  "license": "MIT",
+  "keywords": [
+    "cloudflare",
+    "hosts"
+  ],
+  "permissions": [
+    "log:write",
+    "notice:write"
+  ],
+  "actions": [
+    {
+      "name": "update_hosts",
+      "label": "拉取并更新",
+      "description": "下载订阅并写入 hosts 标记块。"
+    },
+    {
+      "name": "preview",
+      "label": "预览订阅",
+      "description": "仅下载解析不写文件。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "subscribe_urls",
+      "label": "订阅 URL",
+      "type": "textarea",
+      "default": "",
+      "help": "每行一个"
+    },
+    {
+      "key": "hosts_path",
+      "label": "hosts 路径",
+      "type": "text",
+      "default": "",
+      "help": "留空则仅预览/保存到插件 KV"
+    },
+    {
+      "key": "marker",
+      "label": "标记名",
+      "type": "text",
+      "default": "PTPATRONUS-CF"
+    },
+    {
+      "key": "cron_update",
+      "label": "定时",
+      "type": "text",
+      "default": "0 6 * * *"
+    },
+    {
+      "key": "notify",
+      "label": "通知",
+      "type": "switch",
+      "default": true
+    }
+  ],
+  "resource_access": {
+    "fs_paths": [
+      "hosts 文件"
+    ],
+    "net_hosts": [
+      "订阅 URL"
+    ]
+  },
+  "signature": "8nViF0bpDfdaEpUcUevByuxJlIF5ikXTbpNKscHK7oUwOK50w8W6cBLGbOZTFz0GRycUG66R3RicNK9csLEuAw==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "id": "ptp-drama-scrape",
+  "name": "短剧刮削",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/ptp-drama-scrape-1.0.0.zip",
+  "sha256": "a635ba0fdf53f610d94364a327cc388c13f2f14e4ec6239f34eff3bc716e4c8d",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.schedule.cron",
+    "host.api.log.write",
+    "host.api.notice.write",
+    "host.api.kv.read",
+    "host.api.kv.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "扫描短剧目录，调用寸光集等源补齐元数据/封面（开源市场版）。",
+  "license": "MIT",
+  "keywords": [
+    "drama",
+    "scrape"
+  ],
+  "permissions": [
+    "log:write",
+    "notice:write",
+    "kv:read",
+    "kv:write"
+  ],
+  "actions": [
+    {
+      "name": "scan",
+      "label": "扫描刮削",
+      "description": "后台扫描配置目录并刮削。"
+    },
+    {
+      "name": "status",
+      "label": "状态",
+      "description": "查询后台任务。"
+    },
+    {
+      "name": "scrape_one",
+      "label": "搜索单部",
+      "description": "input.name 搜索短剧元数据。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "scan_paths",
+      "label": "扫描路径",
+      "type": "textarea",
+      "default": ""
+    },
+    {
+      "key": "cunguangji_base",
+      "label": "寸光集 API",
+      "type": "text",
+      "default": "https://api.cunguangji.com"
+    },
+    {
+      "key": "cunguangji_key",
+      "label": "API Key",
+      "type": "password",
+      "default": ""
+    },
+    {
+      "key": "write_nfo",
+      "label": "写 NFO",
+      "type": "switch",
+      "default": true
+    },
+    {
+      "key": "cron",
+      "label": "定时",
+      "type": "text",
+      "default": ""
+    }
+  ],
+  "resource_access": {
+    "fs_paths": [
+      "扫描目录"
+    ],
+    "net_hosts": [
+      "寸光集 API"
+    ]
+  },
+  "signature": "umzZBoDd1Pzk0fJfuR29oZizQk/c/qeHfgn+Is4ZcC8zRlzq/TuVrtUIesL98jlDAMW1Yb6dPQgxDbXbTN2NDg==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

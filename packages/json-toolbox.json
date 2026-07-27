@@ -1,0 +1,63 @@
+{
+  "id": "json-toolbox",
+  "name": "JSON 工具箱",
+  "version": "1.0.0",
+  "api_version": "1",
+  "runtime": "external-http",
+  "archive": "archives/json-toolbox-1.0.0.zip",
+  "sha256": "8b02921ace38cc96591334076c1a01ddfc1fbbbdbd93b7f10652c2e4aa737674",
+  "app_version": ">=0.1.0",
+  "host_capabilities": [
+    "host.runtime.external-http.command",
+    "host.api.log.write"
+  ],
+  "author": "PTPatronus Community",
+  "description": "格式化、压缩、取值路径与 JSON 校验工具。",
+  "license": "MIT",
+  "keywords": [
+    "json"
+  ],
+  "permissions": [
+    "log:write"
+  ],
+  "actions": [
+    {
+      "name": "format",
+      "label": "格式化",
+      "description": "美化 JSON 文本。"
+    },
+    {
+      "name": "minify",
+      "label": "压缩",
+      "description": "压缩 JSON 文本。"
+    },
+    {
+      "name": "get",
+      "label": "路径取值",
+      "description": "按点路径取值，如 a.b.0.c。"
+    },
+    {
+      "name": "validate",
+      "label": "校验",
+      "description": "检查是否为合法 JSON。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "indent",
+      "label": "缩进空格",
+      "type": "number",
+      "default": 2
+    }
+  ],
+  "signature": "YamD/P4Pjbjb7WoVqV1uIm6BUdvaIgSEVc/zvUpkUCCjGBZN174m0CTZtFvSh+0QoXXVxFrBgzP6EJ49wD6vBQ==",
+  "publisher": {
+    "id": "ptpatronus",
+    "name": "PTPatronus Official",
+    "website": "https://ptang.top",
+    "verified": true
+  },
+  "changelog": [
+    "migrated from PTPatronus built-in to open market"
+  ]
+}

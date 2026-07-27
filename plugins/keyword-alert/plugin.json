@@ -1,0 +1,76 @@
+{
+  "id": "keyword-alert",
+  "name": "关键词告警",
+  "version": "1.0.0",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "监听事件 payload，命中关键词后发送通知。",
+  "license": "MIT",
+  "keywords": [
+    "alert",
+    "keyword"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "notice:write",
+    "log:write"
+  ],
+  "events": [
+    {
+      "type": "webhook",
+      "description": "Webhook"
+    },
+    {
+      "type": "plugin.test",
+      "description": "测试事件"
+    }
+  ],
+  "actions": [
+    {
+      "name": "test_match",
+      "label": "测试匹配",
+      "description": "用样例文本测试关键词。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "event_types",
+      "label": "监听事件",
+      "type": "textarea",
+      "default": "webhook,plugin.test"
+    },
+    {
+      "key": "keywords",
+      "label": "关键词",
+      "type": "textarea",
+      "default": "error,失败,异常"
+    },
+    {
+      "key": "fields",
+      "label": "检查字段",
+      "type": "textarea",
+      "default": "",
+      "help": "留空检查整个 payload"
+    },
+    {
+      "key": "case_sensitive",
+      "label": "区分大小写",
+      "type": "switch",
+      "default": false
+    },
+    {
+      "key": "level",
+      "label": "通知级别",
+      "type": "text",
+      "default": "warning"
+    }
+  ]
+}
