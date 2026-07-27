@@ -14,6 +14,7 @@ PTPatronus 主程序闭源,但插件平台是开放开发面。本仓库收录 *
 |---|---|---|
 | `ptp-cd2-assistant` | 定时检查 CloudDrive2 实例(上传错误/账号失效)+ 仪表盘(CPU/内存/任务/速度/容量) | 宿主 `pip install clouddrive`、真实 CD2 实例 |
 | `ptp-ffmpeg-thumb` | 扫描媒体库,用 FFmpeg 为缺缩略图的视频截一帧 `<名>-thumb.jpg` | 宿主机 `ffmpeg` |
+| `ptp-miwifi` | 小米/红米路由助手（AX9000 三频/端口映射/设备管理） | 路由器管理密码；经典 Luci Web API |
 | `ptp-library-scrape` | 扫描媒体库,复用宿主 TMDB/豆瓣等源补齐 Kodi 兼容 nfo + 海报 | 无需自备 key(用宿主 media API) |
 
 ## 安装

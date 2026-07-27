@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>小米路由器</title>
+    <style>
+      :root { color-scheme: light dark; font-family: Inter, system-ui, sans-serif; }
+      body { margin: 0; padding: 16px; background: #0f172a; color: #e2e8f0; }
+      h2 { margin: 0 0 4px; font-size: 18px; }
+      .sub { color: #94a3b8; font-size: 12px; margin-bottom: 14px; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+      .card { background: rgba(30,41,59,.92); border: 1px solid rgba(148,163,184,.2); border-radius: 12px; padding: 14px; }
+      .name { font-weight: 700; margin-bottom: 8px; display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+      .badge { font-size: 11px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+      .ok { background: #064e3b; color: #6ee7b7; }
+      .degraded { background: #7c2d12; color: #fdba74; }
+      .error { background: #7f1d1d; color: #fca5a5; }
+      .row { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: #cbd5e1; margin: 4px 0; }
+      .row span:last-child { color: #f8fafc; text-align: right; word-break: break-all; }
+      .section { margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(148,163,184,.15); }
+      .section h3 { margin: 0 0 6px; font-size: 12px; color: #94a3b8; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+      .dev, .pf { font-size: 12px; padding: 8px 0; border-bottom: 1px dashed rgba(148,163,184,.12); }
+      .dev:last-child, .pf:last-child { border-bottom: 0; }
+      .dev .top, .pf .top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+      .dev .meta, .pf .meta { color: #94a3b8; margin-top: 2px; }
+      .err { color: #fca5a5; font-size: 12px; margin-top: 6px; }
+      .muted { color: #64748b; font-size: 12px; }
+      .actions, .dev-actions, .pf-actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 14px; }
+      .dev-actions, .pf-actions { margin: 6px 0 0; }
+      button, .btn { background: #1e293b; color: #e2e8f0; border: 1px solid rgba(148,163,184,.25); border-radius: 8px; padding: 6px 10px; cursor: pointer; font-size: 12px; }
+      button:hover { background: #334155; }
+      button.danger { border-color: rgba(248,113,113,.4); color: #fecaca; }
+      button.okbtn { border-color: rgba(52,211,153,.35); color: #a7f3d0; }
+      .ssid { display: inline-flex; align-items: center; gap: 6px; background: rgba(56,189,248,.12); color: #7dd3fc; border-radius: 8px; padding: 4px 8px; margin: 2px 4px 2px 0; font-size: 12px; }
+      .ssid button { padding: 2px 6px; font-size: 11px; }
+      .form { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+      .form input, .form select { width: 100%; box-sizing: border-box; background: #0f172a; color: #e2e8f0; border: 1px solid rgba(148,163,184,.25); border-radius: 8px; padding: 6px 8px; font-size: 12px; }
+      .form .full { grid-column: 1 / -1; }
+      .toast { position: fixed; right: 16px; bottom: 16px; background: #1e293b; border: 1px solid rgba(148,163,184,.3); padding: 10px 12px; border-radius: 10px; font-size: 12px; max-width: 320px; display: none; z-index: 20; }
+    </style>
+  </head>
+  <body>
+    <h2>小米路由器助手 <span class="muted" id="ts"></span></h2>
+    <div class="sub">状态 / 设备 / Wi-Fi / WAN / LAN / 端口映射。可踢设备、开关 Wi-Fi、添加删除端口映射。</div>
+    <div class="actions">
+      <button id="btnRefresh" type="button">刷新</button>
+      <button id="btnPing" type="button">连通测试</button>
+      <button id="btnPorts" type="button">刷新端口映射</button>
+      <button id="btnReboot" class="danger" type="button">重启主路由</button>
+    </div>
+    <div id="root" class="muted">连接宿主中…</div>
+    <div id="toast" class="toast"></div>
+    <script>
+      function fmt(v) { return v == null || v === '' ? '-' : String(v); }
+      function pct(v) {
+        if (v == null || v === '') return '-';
+        var n = Number(v);
+        if (isNaN(n)) return String(v);
+        if (n <= 1) n = n * 100;
+        return n.toFixed(1) + '%';
+      }
+      function speed(v) {
+        var n = Number(v || 0);
+        if (!n) return '0';
+        if (n > 1024 * 1024) return (n / 1024 / 1024).toFixed(1) + ' MB/s';
+        if (n > 1024) return (n / 1024).toFixed(1) + ' KB/s';
+        return n + ' B/s';
+      }
+      function esc(s) {
+        return String(s == null ? '' : s)
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+      function toast(msg) {
+        var el = document.getElementById('toast');
+        el.textContent = msg;
+        el.style.display = 'block';
+        clearTimeout(window.__toastTimer);
+        window.__toastTimer = setTimeout(function(){ el.style.display = 'none'; }, 2800);
+      }
+      async function call(action, input) {
+        if (!window.PTPatronus || !window.PTPatronus.action) {
+          throw new Error('宿主桥接不可用（需要 PTPatronus.action）');
+        }
+        var res = await window.PTPatronus.action(action, input || {});
+        if (res && res.ok === false) throw new Error(res.error || 'action failed');
+        return res && res.output ? res.output : res;
+      }
+      async function kick(mac, name) {
+        if (!confirm('确认限制该设备上网？\n' + (name || mac))) return;
+        try {
+          await call('device_authority', { mac: mac, kick: true });
+          toast('已限制 ' + (name || mac));
+          tick();
+        } catch (e) { toast('失败：' + (e && e.message ? e.message : e)); }
+      }
+      async function allow(mac, name) {
+        try {
+          await call('device_authority', { mac: mac, allow: true });
+          toast('已恢复 ' + (name || mac));
+          tick();
+        } catch (e) { toast('失败：' + (e && e.message ? e.message : e)); }
+      }
+      async function toggleWifi(index, on, ssid) {
+        var next = (on === 0 || on === '0' || on === false) ? 1 : 0;
+        var tip = next ? '开启' : '关闭';
+        if (!confirm(tip + ' Wi-Fi：' + (ssid || ('#' + index)) + ' ?')) return;
+        try {
+          await call('wifi_set', { wifi_index: index, on: next });
+          toast('已请求' + tip + ' ' + (ssid || index));
+          setTimeout(tick, 1200);
+        } catch (e) { toast('失败：' + (e && e.message ? e.message : e)); }
+      }
+      async function deletePort(rule) {
+        var tip = (rule.name || '') + ' ' + (rule.sport || '') + ' -> ' + (rule.ip || '') + ':' + (rule.dport || '');
+        if (!confirm('删除端口映射？\n' + tip)) return;
+        try {
+          await call('port_forward', {
+            op: 'delete',
+            fwid: rule.fwid,
+            name: rule.name,
+            ip: rule.ip,
+            sport: rule.sport,
+            dport: rule.dport,
+            protocol: rule.protocol
+          });
+          toast('已删除映射');
+          tick();
+        } catch (e) { toast('删除失败：' + (e && e.message ? e.message : e)); }
+      }
+      async function addPort(form) {
+        var payload = {
+          op: 'add',
+          name: form.name.value.trim() || 'ptp',
+          ip: form.ip.value.trim(),
+          sport: form.sport.value.trim(),
+          dport: form.dport.value.trim() || form.sport.value.trim(),
+          protocol: form.protocol.value,
+          enable: 1
+        };
+        if (!payload.ip || !payload.sport) {
+          toast('请填写目标 IP 与外部端口');
+          return;
+        }
+        try {
+          await call('port_forward', payload);
+          toast('已添加 ' + payload.sport + ' -> ' + payload.ip + ':' + payload.dport);
+          form.reset();
+          form.protocol.value = 'tcp';
+          tick();
+        } catch (e) { toast('添加失败：' + (e && e.message ? e.message : e)); }
+      }
+      function renderPorts(it) {
+        var rules = it.port_forwards || [];
+        var list = rules.map(function(r) {
+          return '<div class="pf"><div class="top"><strong>' + esc(r.name || ('#' + r.fwid)) + '</strong><span>' +
+            (r.enable ? '启用' : '停用') + ' · ' + esc(r.protocol || '-') + '</span></div>' +
+            '<div class="meta">外网 ' + esc(r.sport) + ' → ' + esc(r.ip) + ':' + esc(r.dport) + '</div>' +
+            '<div class="pf-actions"><button type="button" class="danger" data-del-port="' + esc(JSON.stringify(r)) + '">删除</button></div></div>';
+        }).join('') || '<div class="muted">暂无端口映射</div>';
+        if (it.port_forwards_error) {
+          list = '<div class="err">端口映射: ' + esc(it.port_forwards_error) + '</div>' + list;
+        }
+        var form = '<form class="form" data-port-form="1">' +
+          '<input name="name" placeholder="名称(可选)" />' +
+          '<select name="protocol"><option value="tcp">TCP</option><option value="udp">UDP</option><option value="tcp+udp">TCP+UDP</option></select>' +
+          '<input name="sport" placeholder="外部端口 sport" required />' +
+          '<input name="dport" placeholder="内部端口 dport(可空=同外部)" />' +
+          '<input class="full" name="ip" placeholder="内网目标 IP 例如 192.168.31.20" required />' +
+          '<button class="full okbtn" type="submit">添加端口映射</button>' +
+          '</form>';
+        return '<div class="section"><h3>端口映射 (' + rules.length + ')</h3>' + list + form + '</div>';
+      }
+      function renderRouter(it) {
+        var st = it.system || {};
+        var wan = it.wan || {};
+        var lan = it.lan || {};
+        var statusClass = it.status === 'ok' ? 'ok' : (it.status === 'degraded' ? 'degraded' : 'error');
+        var statusText = it.status === 'ok' ? '正常' : (it.status === 'degraded' ? '降级' : '错误');
+        var wifiHtml = (it.wifi || []).map(function (w) {
+          var on = !(w.on === 0 || w.on === '0' || w.on === false);
+          return '<span class="ssid">' + esc(w.ssid || w.ifname || ('#' + w.index)) +
+            (on ? '' : ' · 关') +
+            ' <button type="button" data-wifi-index="' + esc(w.index) + '" data-wifi-on="' + (on ? '1' : '0') + '" data-wifi-ssid="' + esc(w.ssid || '') + '">' +
+            (on ? '关闭' : '开启') + '</button></span>';
+        }).join('') || '<span class="muted">无 Wi-Fi 信息</span>';
+        var devs = (it.devices || []).filter(function (d) { return d.online; }).slice(0, 12);
+        var devHtml = devs.map(function (d) {
+          return '<div class="dev"><div class="top"><strong>' + esc(d.name || d.mac) + '</strong><span>' +
+            speed(d.downspeed) + ' ↓ / ' + speed(d.upspeed) + ' ↑</span></div>' +
+            '<div class="meta">' + esc(d.ip || '-') + ' · ' + esc(d.mac || '-') + '</div>' +
+            '<div class="dev-actions">' +
+              '<button type="button" class="danger" data-kick="' + esc(d.mac) + '" data-dname="' + esc(d.name || '') + '">踢下线</button>' +
+              '<button type="button" class="okbtn" data-allow="' + esc(d.mac) + '" data-dname="' + esc(d.name || '') + '">恢复上网</button>' +
+            '</div></div>';
+        }).join('') || '<div class="muted">暂无在线设备</div>';
+        var body = it.error
+          ? '<div class="err">' + esc(it.error) + '</div>'
+          : '<div class="row"><span>地址</span><span>' + esc(it.base_url) + '</span></div>' +
+            '<div class="row"><span>CPU</span><span>' + fmt(st.cpu_load) + (st.cpu_cores ? ' / ' + st.cpu_cores + '核' : '') + '</span></div>' +
+            '<div class="row"><span>内存</span><span>' + pct(st.mem_usage) + '</span></div>' +
+            '<div class="row"><span>运行时长</span><span>' + fmt(st.uptime) + '</span></div>' +
+            '<div class="row"><span>在线设备</span><span>' + fmt(it.online != null ? it.online : st.online) + '</span></div>' +
+            '<div class="row"><span>WAN IP</span><span>' + fmt(wan.ip || st.wan_ip) + '</span></div>' +
+            '<div class="row"><span>WAN</span><span>' + fmt(wan.type) + (wan.gateway ? ' · gw ' + esc(wan.gateway) : '') + '</span></div>' +
+            '<div class="row"><span>LAN</span><span>' + fmt(lan.ip) + (lan.start ? ' · DHCP ' + esc(lan.start) + '-' + esc(lan.end) : '') + '</span></div>' +
+            (it.system_error ? '<div class="err">系统: ' + esc(it.system_error) + '</div>' : '') +
+            (it.devices_error ? '<div class="err">设备: ' + esc(it.devices_error) + '</div>' : '') +
+            (it.wifi_error ? '<div class="err">Wi-Fi: ' + esc(it.wifi_error) + '</div>' : '') +
+            (it.wan_error ? '<div class="err">WAN: ' + esc(it.wan_error) + '</div>' : '') +
+            (it.lan_error ? '<div class="err">LAN: ' + esc(it.lan_error) + '</div>' : '') +
+            '<div class="section"><h3>Wi-Fi</h3>' + wifiHtml + '</div>' +
+            '<div class="section"><h3>在线设备</h3>' + devHtml + '</div>' +
+            renderPorts(it);
+        return '<div class="card" data-router="' + esc(it.name) + '"><div class="name"><span>' + esc(it.name) + '</span>' +
+          '<span class="badge ' + statusClass + '">' + statusText + '</span></div>' + body + '</div>';
+      }
+      function bind(root) {
+        root.querySelectorAll('[data-kick]').forEach(function(btn){
+          btn.onclick = function(){ kick(btn.getAttribute('data-kick'), btn.getAttribute('data-dname')); };
+        });
+        root.querySelectorAll('[data-allow]').forEach(function(btn){
+          btn.onclick = function(){ allow(btn.getAttribute('data-allow'), btn.getAttribute('data-dname')); };
+        });
+        root.querySelectorAll('[data-wifi-index]').forEach(function(btn){
+          btn.onclick = function(){
+            toggleWifi(btn.getAttribute('data-wifi-index'), btn.getAttribute('data-wifi-on'), btn.getAttribute('data-wifi-ssid'));
+          };
+        });
+        root.querySelectorAll('[data-del-port]').forEach(function(btn){
+          btn.onclick = function(){
+            try { deletePort(JSON.parse(btn.getAttribute('data-del-port'))); }
+            catch (e) { toast('规则解析失败'); }
+          };
+        });
+        root.querySelectorAll('form[data-port-form]').forEach(function(form){
+          form.onsubmit = function(ev){ ev.preventDefault(); addPort(form); };
+        });
+      }
+      async function tick() {
+        var root = document.getElementById('root');
+        var ts = document.getElementById('ts');
+        ts.textContent = new Date().toLocaleTimeString();
+        try {
+          var out = await call('dashboard');
+          var routers = (out && out.routers) || [];
+          if (!routers.length) {
+            root.className = 'muted';
+            root.textContent = '无路由器数据。请在插件设置填写 base_url 与 password。';
+            return;
+          }
+          root.className = 'grid';
+          root.innerHTML = routers.map(renderRouter).join('');
+          bind(root);
+        } catch (e) {
+          root.className = 'muted';
+          root.textContent = '加载失败：' + (e && e.message ? e.message : e);
+        }
+      }
+      document.getElementById('btnRefresh').onclick = function () { tick(); };
+      document.getElementById('btnPorts').onclick = async function () {
+        try {
+          var out = await call('port_forward', { op: 'list' });
+          toast('端口映射 ' + ((out && out.count) || 0) + ' 条');
+          tick();
+        } catch (e) { toast('读取失败：' + (e && e.message ? e.message : e)); }
+      };
+      document.getElementById('btnPing').onclick = async function () {
+        try {
+          var out = await call('ping');
+          toast('连通成功 ' + (out.hardware || '') + ' / ROM ' + (out.rom || ''));
+          tick();
+        } catch (e) {
+          toast('连通失败：' + (e && e.message ? e.message : e));
+        }
+      };
+      document.getElementById('btnReboot').onclick = async function () {
+        if (!confirm('确认重启主路由？设备将短暂断网。')) return;
+        try {
+          await call('reboot', { confirm: true });
+          toast('已下发重启指令');
+        } catch (e) {
+          toast('重启失败：' + (e && e.message ? e.message : e));
+        }
+      };
+      tick();
+      setInterval(tick, 15000);
+    </script>
+  </body>
+</html>

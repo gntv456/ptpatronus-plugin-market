@@ -1,0 +1,286 @@
+{
+  "id": "ptp-miwifi",
+  "name": "小米路由器助手",
+  "version": "0.2.2",
+  "api_version": "1",
+  "app_version": ">=0.1.0",
+  "author": "PTPatronus Community",
+  "description": "连接小米/红米路由器（含 AX9000/ra81 三频优化）：系统状态、设备、Wi-Fi、WAN/LAN/DHCP/DNS、端口映射、MAC 过滤、Mesh 拓扑等。仅需管理密码，无需小米云账号。",
+  "license": "MIT",
+  "homepage": "https://github.com/gntv456/ptpatronus-plugin-market",
+  "repository": "https://github.com/gntv456/ptpatronus-plugin-market",
+  "keywords": [
+    "xiaomi",
+    "miwifi",
+    "router",
+    "redmi",
+    "network",
+    "dhcp",
+    "dns",
+    "ax9000",
+    "ra81",
+    "triband",
+    "mesh"
+  ],
+  "runtime": "external-http",
+  "entry": {
+    "command": "python",
+    "args": [
+      "plugin.py"
+    ],
+    "health": "/health"
+  },
+  "permissions": [
+    "log:write",
+    "notice:write",
+    "kv:read",
+    "kv:write"
+  ],
+  "events": [],
+  "actions": [
+    {
+      "name": "ping",
+      "label": "连通性测试",
+      "description": "读取 init_info 并登录，验证地址与密码。"
+    },
+    {
+      "name": "model",
+      "label": "识别机型",
+      "description": "读取 hardware/rom 并匹配档案（AX9000=ra81 三频）。"
+    },
+    {
+      "name": "status",
+      "label": "系统状态",
+      "description": "CPU/内存/运行时长/温度/在线数/WAN 等。"
+    },
+    {
+      "name": "devices",
+      "label": "在线设备",
+      "description": "列出设备。input.online_only=true 仅在线。"
+    },
+    {
+      "name": "device_rename",
+      "label": "设备改名",
+      "description": "input.mac + input.nickname 修改设备显示名。"
+    },
+    {
+      "name": "device_limit",
+      "label": "设备限速",
+      "description": "input.mac + maxdownload/maxupload(KB/s，0=不限)。"
+    },
+    {
+      "name": "wifi_info",
+      "label": "Wi-Fi 详情",
+      "description": "返回各频段 Wi-Fi 详情（AX9000 含 2.4G/5G-1/5G-2 标签）。"
+    },
+    {
+      "name": "wifi_set",
+      "label": "配置 Wi-Fi",
+      "description": "修改 Wi-Fi。input: wifi_index(AX9000:1=2.4G,2=5G-1,3=5G-2)、ssid、password、on、channel、hidden、txpwr、encryption。"
+    },
+    {
+      "name": "wan_info",
+      "label": "WAN 信息",
+      "description": "WAN 类型/IP/网关/DNS。"
+    },
+    {
+      "name": "lan_info",
+      "label": "LAN/DHCP 信息",
+      "description": "LAN 网段与 DHCP 池。"
+    },
+    {
+      "name": "dhcp_set",
+      "label": "配置 DHCP",
+      "description": "input: start/end/leasetime/lan_ip/netmask（按固件支持字段）。"
+    },
+    {
+      "name": "dns_info",
+      "label": "DNS 信息",
+      "description": "当前 DNS 与模式。"
+    },
+    {
+      "name": "dns_set",
+      "label": "配置 DNS",
+      "description": "input.dns1/dns2；input.mode 可选。"
+    },
+    {
+      "name": "mac_filter_info",
+      "label": "MAC 过滤信息",
+      "description": "黑/白名单模式与列表。"
+    },
+    {
+      "name": "mac_filter_set",
+      "label": "设置 MAC 过滤",
+      "description": "model=0/1/2；mac；option=0添加/1删除。"
+    },
+    {
+      "name": "device_authority",
+      "label": "设备上网权限",
+      "description": "input.mac + wan/lan/admin；kick=true 等价 wan=0。"
+    },
+    {
+      "name": "port_forward",
+      "label": "端口映射",
+      "description": "端口映射（转发）。op=list|add|delete|enable|disable。add 需 ip + sport(外部端口)，可选 dport/protocol/name/enable；也可用 external_port/internal_port/dest_ip 别名。delete 需 fwid 或 name 或 ip+sport。"
+    },
+    {
+      "name": "time_info",
+      "label": "系统时间",
+      "description": "读取路由时间/时区/NTP。"
+    },
+    {
+      "name": "time_set",
+      "label": "设置时间",
+      "description": "input.timezone / ntp / manual time 字段（固件差异自动尝试）。"
+    },
+    {
+      "name": "netdetect",
+      "label": "网络检测",
+      "description": "触发/读取链路诊断信息。"
+    },
+    {
+      "name": "reboot",
+      "label": "重启路由",
+      "description": "input.confirm=true 才执行。"
+    },
+    {
+      "name": "router_name",
+      "label": "路由名称",
+      "description": "读取或设置。设置用 input.rename。"
+    },
+    {
+      "name": "dashboard",
+      "label": "仪表盘数据",
+      "description": "聚合状态/设备/Wi-Fi/WAN/LAN。"
+    },
+    {
+      "name": "mesh",
+      "label": "Mesh/拓扑",
+      "description": "读取 Mesh 子节点/拓扑（AX 系列常见）。"
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "base_url",
+      "label": "路由器地址",
+      "type": "text",
+      "default": "http://192.168.31.1",
+      "help": "通常 http://192.168.31.1 或 http://miwifi.com",
+      "group": "连接"
+    },
+    {
+      "key": "username",
+      "label": "管理用户名",
+      "type": "text",
+      "default": "admin",
+      "help": "多数机型固定 admin",
+      "group": "连接"
+    },
+    {
+      "key": "password",
+      "label": "管理密码",
+      "type": "password",
+      "default": "",
+      "help": "后台登录密码（不是小米账号）",
+      "group": "连接"
+    },
+    {
+      "key": "timeout",
+      "label": "请求超时(秒)",
+      "type": "number",
+      "default": 8,
+      "group": "连接"
+    },
+    {
+      "key": "extra_routers",
+      "label": "额外路由器",
+      "type": "textarea",
+      "default": "",
+      "help": "每行 name#url#password",
+      "group": "多路由"
+    },
+    {
+      "key": "notify_offline",
+      "label": "设备离线通知",
+      "type": "switch",
+      "default": false,
+      "group": "巡检"
+    },
+    {
+      "key": "watch_macs",
+      "label": "关注 MAC 列表",
+      "type": "textarea",
+      "default": "",
+      "help": "每行一个 MAC",
+      "group": "巡检"
+    },
+    {
+      "key": "cron",
+      "label": "定时巡检",
+      "type": "text",
+      "default": "",
+      "help": "留空不巡检，例 */5 * * * *",
+      "group": "调度"
+    }
+  ],
+  "schedule": [
+    {
+      "id": "watch",
+      "label": "定时巡检设备在线状态",
+      "action": "devices",
+      "cron_config_key": "cron"
+    }
+  ],
+  "resource_access": {
+    "net_hosts": [
+      "用户配置的小米路由器管理地址（默认 192.168.31.1）"
+    ]
+  },
+  "contributes": {
+    "commands": [
+      {
+        "id": "ptp-miwifi.dashboard",
+        "label": "小米路由：刷新状态",
+        "action": "dashboard"
+      },
+      {
+        "id": "ptp-miwifi.reboot",
+        "label": "小米路由：重启",
+        "action": "reboot"
+      },
+      {
+        "id": "ptp-miwifi.devices",
+        "label": "小米路由：在线设备",
+        "action": "devices"
+      },
+      {
+        "id": "ptp-miwifi.ping",
+        "label": "小米路由：连通测试",
+        "action": "ping"
+      },
+      {
+        "id": "ptp-miwifi.port_forward",
+        "label": "小米路由：端口映射",
+        "action": "port_forward"
+      }
+    ],
+    "views": [
+      {
+        "id": "dashboard",
+        "title": "小米路由器",
+        "location": "plugins",
+        "path": "index.html"
+      }
+    ],
+    "menus": [
+      {
+        "location": "plugins/actions",
+        "command": "ptp-miwifi.dashboard"
+      },
+      {
+        "location": "plugins/actions",
+        "command": "ptp-miwifi.devices"
+      }
+    ]
+  }
+}
