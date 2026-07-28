@@ -1,18 +1,18 @@
 {
-  "latestVersion": "1.01.01",
+  "latestVersion": "1.02.00",
   "minVersion": "0.60.00",
-  "releaseName": "1.01.01：命令面板收敛 / 通知玻璃质感 / 连通性 SSE",
-  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）：https://wwazg.lanzoub.com/b03anmtyxg。本版 1.01.01 主要更新：① 命令面板（⌘K / FAB）空查询只列侧栏外功能入口、输入查询全量 fuzzy（侧栏项仍可搜到）；② 通知中心弹窗改磨砂玻璃质感（与命令面板同体系）；③ 站点连通性缓存 + SSE 逐站更新；④ 公告 / 站点 favicon 等前端调整；⑤ 版本号 1.0.0 → 1.01.01。docker 用户 pull :latest 即更新。",
+  "releaseName": "1.02.00：下载器补齐 Flood/ruTorrent / 字幕自动下载 / 能力矩阵 API",
+  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）：https://wwazg.lanzoub.com/b03anmtyxg。本版 1.02.00 主要更新：① 下载器补齐 Flood / ruTorrent 客户端（对标 PT-depiler），能力矩阵按 type 收敛；② 字幕自动下载（Bazarr 模式）；③ 下载器能力矩阵后端 API + LLM 网关多轮对话；④ 默认下载器选择器 + 下载器 UI 打磨；⑤ 评估修复（plugins 测试红灯 / 事件订阅泄漏 / cookiecloud SSRF / OIDC token / Trakt 401 刷新）；⑥ 插件 feature builtins 迁至公开插件市场。docker 用户 pull :latest 即更新。",
   "isForced": false,
-  "publishedAt": "2026-07-25T06:30:00Z",
+  "publishedAt": "2026-07-28T06:30:00Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.01.01",
+      "image": "ghcr.io/gntv456/pt-patronus:1.02.00",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "69d01cd2d29a0365c2298e0375db5c33e900ffabf45f45ba1df6c6cb14acc936"
+      "sha256": "d3101a3d2b11320f3744093e00194962b083afd96992e38bb03650d6f7fbe70c"
     },
     "ios": {
       "url": "https://<AltSource.json 公开URL>"
@@ -23,15 +23,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "8faceb27f956b619888cbdcec80b63c808a8234ce0bb797935173b41a1628c6f"
+      "sha256": "df5ddabd73e08063d9d855b96bdfa1d5fee51505e2f115cdb4dcae25c72d9efe"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "a656e1869f5866286a4842614fc2350f5cdd59972ef213655fe968b872e5e65b"
+      "sha256": "8f0ff8f1a33974137b2c41cdfe9018ad9102eee37919ac61a930223b63e8d000"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "10554ecc099818f83953378489b7d95d848c22fcf94b73b8c367f002950c7be6"
+      "sha256": "55776e738dc2b4f9143fc6d87447a03d66cbe88a2165ac03dda9ef3b302e3192"
     }
   }
 }
