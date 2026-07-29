@@ -1,18 +1,18 @@
 {
-  "latestVersion": "1.02.00",
+  "latestVersion": "1.02.01",
   "minVersion": "0.60.00",
-  "releaseName": "1.02.00：下载器补齐 Flood/ruTorrent / 字幕自动下载 / 能力矩阵 API",
-  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）：https://wwazg.lanzoub.com/b03anmtyxg。本版 1.02.00 主要更新：① 下载器补齐 Flood / ruTorrent 客户端（对标 PT-depiler），能力矩阵按 type 收敛；② 字幕自动下载（Bazarr 模式）；③ 下载器能力矩阵后端 API + LLM 网关多轮对话；④ 默认下载器选择器 + 下载器 UI 打磨；⑤ 评估修复（plugins 测试红灯 / 事件订阅泄漏 / cookiecloud SSRF / OIDC token / Trakt 401 刷新）；⑥ 插件 feature builtins 迁至公开插件市场。docker 用户 pull :latest 即更新。",
+  "releaseName": "1.02.01：cookie 刷屏根治 + 站免流式加载 + 连通性节流",
+  "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）：https://wwazg.lanzoub.com/b03anmtyxg。本版 1.02.01 主要更新：① 修复 cookie 刷屏日志根因（parseCookieJar 改手动分割，不再被 RFC6265 校验静默丢字节、cookie 值不再被破坏）；② 站免页流式加载（每站抓完即显示一个，不再首次进页面因等全量而超时失败）+ SWR 缓存（缓存过期秒回旧值、后台异步刷新）；③ 站点连通性进页面秒显上次结果（近 2min 已测站复用缓存，后台仅刷新过期站，不再每次打开全量重测）；④ 评估抓取并发 5→8（冷启更快）。docker 用户 pull :latest 即更新。",
   "isForced": false,
-  "publishedAt": "2026-07-28T06:30:00Z",
+  "publishedAt": "2026-07-28T23:00:00Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.02.00",
+      "image": "ghcr.io/gntv456/pt-patronus:1.02.01",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "d3101a3d2b11320f3744093e00194962b083afd96992e38bb03650d6f7fbe70c"
+      "sha256": "dc5219356677a0b1bac4906d8260ebcd11cf19cbf1e83f5465b64e9fee73f96f"
     },
     "ios": {
       "url": "https://<AltSource.json 公开URL>"
@@ -23,15 +23,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "df5ddabd73e08063d9d855b96bdfa1d5fee51505e2f115cdb4dcae25c72d9efe"
+      "sha256": "9f8cf14c04596f525566a68af9e25e08cf2e69aec4130bcd344e13ae23893531"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "8f0ff8f1a33974137b2c41cdfe9018ad9102eee37919ac61a930223b63e8d000"
+      "sha256": "c746a255fdceb680fab884e03f2519e078b1357b9033cf7e2c1ab779c58b2183"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "55776e738dc2b4f9143fc6d87447a03d66cbe88a2165ac03dda9ef3b302e3192"
+      "sha256": "a8ebeead1ffc2369011e255f3fd50a2394131b0091bd3e5dac7af67ee7ae1e78"
     }
   }
 }
