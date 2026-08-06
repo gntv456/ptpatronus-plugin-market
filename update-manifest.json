@@ -1,5 +1,5 @@
 {
-  "latestVersion": "1.02.03",
+  "latestVersion": "1.02.04",
   "minVersion": "0.60.00",
   "releaseName": "1.02.01：cookie 刷屏根治 + 站免流式加载 + 连通性节流",
   "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）：https://wwazg.lanzoub.com/b03anmtyxg。本版 1.02.01 主要更新：① 修复 cookie 刷屏日志根因（parseCookieJar 改手动分割，不再被 RFC6265 校验静默丢字节、cookie 值不再被破坏）；② 站免页流式加载（每站抓完即显示一个，不再首次进页面因等全量而超时失败）+ SWR 缓存（缓存过期秒回旧值、后台异步刷新）；③ 站点连通性进页面秒显上次结果（近 2min 已测站复用缓存，后台仅刷新过期站，不再每次打开全量重测）；④ 评估抓取并发 5→8（冷启更快）。docker 用户 pull :latest 即更新。",
@@ -7,12 +7,12 @@
   "publishedAt": "2026-08-05T11:30:00Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.02.03",
+      "image": "ghcr.io/gntv456/pt-patronus:1.02.04",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "2a14cbda0dd6d1015f7dd6d47c5d89f27f248752b784e037ad15329a631d33ea"
+      "sha256": "fec43d2477060a764b5a0648d00b84ea35f551b6d356af075b11a804aa916e41"
     },
     "macos": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
@@ -20,15 +20,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "cb4e8a6a9e0f63e5a98afdf30040033076c74a540ce507ba3b84bf7504ee2b52"
+      "sha256": "af2e1070d161db9b8de0293b2cadeac3c0f24c6c5b3d5fceb59104f8531224ca"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "0cb903fa33a30a93fe394f31a2fb0778c7ed9b73722c6a1054078d9b370b3727"
+      "sha256": "e8fa7c44025145e036855a40422a2aa075528d2353b589fc53748404f53f46fa"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "4b2698f2f4653f111e3390afeceb82b72bbc353339c32af5c7c24d3fa08da34a"
+      "sha256": "62da2d3fae923523eff3eef80656ac270c91c17cdf3322c31e14e499d7252e84"
     }
   }
 }
