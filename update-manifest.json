@@ -1,5 +1,5 @@
 {
-  "latestVersion": "1.02.04",
+  "latestVersion": "1.02.05",
   "minVersion": "0.60.00",
   "releaseName": "1.02.01：cookie 刷屏根治 + 站免流式加载 + 连通性节流",
   "releaseNotes": "客户端下载（蓝奏云提取码 hxpt）：https://wwazg.lanzoub.com/b03anmtyxg。本版 1.02.01 主要更新：① 修复 cookie 刷屏日志根因（parseCookieJar 改手动分割，不再被 RFC6265 校验静默丢字节、cookie 值不再被破坏）；② 站免页流式加载（每站抓完即显示一个，不再首次进页面因等全量而超时失败）+ SWR 缓存（缓存过期秒回旧值、后台异步刷新）；③ 站点连通性进页面秒显上次结果（近 2min 已测站复用缓存，后台仅刷新过期站，不再每次打开全量重测）；④ 评估抓取并发 5→8（冷启更快）。docker 用户 pull :latest 即更新。",
@@ -7,7 +7,7 @@
   "publishedAt": "2026-08-05T11:30:00Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.02.04",
+      "image": "ghcr.io/gntv456/pt-patronus:1.02.05",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
