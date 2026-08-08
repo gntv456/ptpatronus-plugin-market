@@ -1,13 +1,13 @@
 {
-  "latestVersion": "1.02.06",
+  "latestVersion": "1.03.14",
   "minVersion": "0.60.00",
-  "releaseName": "1.02.06：类型安全加固 + 质量门禁补强",
-  "releaseNotes": "docker 用户 pull :latest 即更新。本版 1.02.06 主要更新：① 修复文件拆分后遗留的全部 vue-tsc 类型错误（14 文件，涉及 Savept/Dashboard/NasServer/FilterRules 等）；② 补强质量防线——CI 改为全分支触发 + pre-push 钩子新增 go vet/go build/vue-tsc 三道门禁，防止开发分支积累类型错误到发版才暴露。",
+  "releaseName": "1.03.14：通知中心分组折叠 + 容器1Panel风格 + 磁盘用量优化",
+  "releaseNotes": "docker 用户 pull :latest 即更新。本版 1.03.14 主要更新：① 通知中心按类型分组折叠，点击展开；② 运维中心容器模块改造为 1Panel 风格（创建/检查/日志/控制台/统计）；③ 磁盘用量展示优化；④ 修复若干 vue-tsc 类型错误与质量门禁。",
   "isForced": false,
-  "publishedAt": "2026-08-06T09:33:09.691Z",
+  "publishedAt": "2026-08-08T00:25:19.217Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.02.06",
+      "image": "ghcr.io/gntv456/pt-patronus:1.03.14",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
