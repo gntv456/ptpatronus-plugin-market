@@ -1,18 +1,18 @@
 {
-  "latestVersion": "1.03.14",
+  "latestVersion": "1.03.15",
   "minVersion": "0.60.00",
-  "releaseName": "1.03.14：通知中心分组折叠 + 容器1Panel风格 + 磁盘用量优化",
-  "releaseNotes": "docker 用户 pull :latest 即更新。本版 1.03.14 主要更新：① 通知中心按类型分组折叠，点击展开；② 运维中心容器模块改造为 1Panel 风格（创建/检查/日志/控制台/统计）；③ 磁盘用量展示优化；④ 修复若干 vue-tsc 类型错误与质量门禁。",
+  "releaseName": "1.03.15：NAS/运维/工作流 UX 全面修复 + 安全加固",
+  "releaseNotes": "docker 用户 pull :latest 即更新。本版 1.03.15 主要更新：① NAS 在线终端改用 xterm 真实终端（支持断线自动重连+心跳）；② 工作流编辑器增加键盘快捷键/未保存拦截/节点搜索/cron 预览；③ 磁盘格式化需输入设备名二次确认；④ 批量删除进度条+取消按钮；⑤ 插件配置/工作流必填字段校验；⑥ 文件管理器错误提示优化+网格选择；⑦ Docker 批量操作确认；⑧ 后端 SNMP/SSH/fstab 等安全加固；⑨ 清理死代码。",
   "isForced": false,
   "publishedAt": "2026-08-08T00:25:19.217Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.03.14",
+      "image": "ghcr.io/gntv456/pt-patronus:1.03.15",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "fec43d2477060a764b5a0648d00b84ea35f551b6d356af075b11a804aa916e41"
+      "sha256": "2db140ae3492e63d01b0f86b1ddca25fd440cf18748c47883d6ce504101069d1"
     },
     "macos": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
@@ -20,15 +20,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "af2e1070d161db9b8de0293b2cadeac3c0f24c6c5b3d5fceb59104f8531224ca"
+      "sha256": "b4ddf12c6294a3dc921d5cff96450c9c9a473afad9c9479a29634e7bc167659b"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "e8fa7c44025145e036855a40422a2aa075528d2353b589fc53748404f53f46fa"
+      "sha256": "e271f62656736685338bb13e35649765c4c5f41570638c156df9cc190eca0317"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "62da2d3fae923523eff3eef80656ac270c91c17cdf3322c31e14e499d7252e84"
+      "sha256": "9cefd9980d3958554163bed97b62c3525427fa68369168641a3a1d958ab49c46"
     }
   }
 }
