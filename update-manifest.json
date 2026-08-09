@@ -1,18 +1,18 @@
 {
-  "latestVersion": "1.03.15",
+  "latestVersion": "1.03.16",
   "minVersion": "0.60.00",
-  "releaseName": "1.03.15：NAS/运维/工作流 UX 全面修复 + 安全加固",
-  "releaseNotes": "docker 用户 pull :latest 即更新。本版 1.03.15 主要更新：① NAS 在线终端改用 xterm 真实终端（支持断线自动重连+心跳）；② 工作流编辑器增加键盘快捷键/未保存拦截/节点搜索/cron 预览；③ 磁盘格式化需输入设备名二次确认；④ 批量删除进度条+取消按钮；⑤ 插件配置/工作流必填字段校验；⑥ 文件管理器错误提示优化+网格选择；⑦ Docker 批量操作确认；⑧ 后端 SNMP/SSH/fstab 等安全加固；⑨ 清理死代码。",
+  "releaseName": "1.03.16：Docker 页面修复 + 光驱过滤 + NAS 远程管理支持",
+  "releaseNotes": "docker 用户 pull :latest 即更新。本版 1.03.16 主要修复：① 修复运维 Docker 页面因空数据导致的渲染崩溃；② 磁盘列表不再显示光驱（/dev/sr0）；③ Docker 远程模式支持 NAS 类型目标（SSH 管理飞牛等 NAS 上的容器）；④ 本机 Docker 未接入时显示友好引导+一键复制挂载命令。",
   "isForced": false,
   "publishedAt": "2026-08-08T00:25:19.217Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.03.15",
+      "image": "ghcr.io/gntv456/pt-patronus:1.03.16",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "2db140ae3492e63d01b0f86b1ddca25fd440cf18748c47883d6ce504101069d1"
+      "sha256": "6378c2e61c73ec9ab422481fae959fc5db8b06062b005488a3b369d570f49cc1"
     },
     "macos": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
@@ -20,15 +20,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "b4ddf12c6294a3dc921d5cff96450c9c9a473afad9c9479a29634e7bc167659b"
+      "sha256": "741a753ba9f955a62ef5a72caab3111ad00594b5997b6b2ea9711396c46f5cca"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "e271f62656736685338bb13e35649765c4c5f41570638c156df9cc190eca0317"
+      "sha256": "d192a738e5641f68070526fe5571968d0a1bdcf1c1118c649b1583dff7c36d57"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "9cefd9980d3958554163bed97b62c3525427fa68369168641a3a1d958ab49c46"
+      "sha256": "d6fc66d16b1af9ebb917c00ac45960efac4479aeff543d318fa1453f80bc3f18"
     }
   }
 }
