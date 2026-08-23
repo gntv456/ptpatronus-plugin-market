@@ -1,18 +1,26 @@
 {
-  "latestVersion": "1.03.16",
+  "latestVersion": "1.03.17",
   "minVersion": "0.60.00",
-  "releaseName": "1.03.16：Docker 页面修复 + 光驱过滤 + NAS 远程管理支持",
-  "releaseNotes": "docker 用户 pull :latest 即更新。本版 1.03.16 主要修复：① 修复运维 Docker 页面因空数据导致的渲染崩溃；② 磁盘列表不再显示光驱（/dev/sr0）；③ Docker 远程模式支持 NAS 类型目标（SSH 管理飞牛等 NAS 上的容器）；④ 本机 Docker 未接入时显示友好引导+一键复制挂载命令。",
+  "releaseName": "1.03.17：iOS 打包版 + macOS ATS 放行 + TS 修复",
+  "releaseNotes": "docker 用户 pull :latest 即更新。本版 1.03.17：① 合并 1.03.16 全量修复（Docker 页面崩溃/光驱显示/NAS 类型目标/本机引导）；② 新增 iOS 未签名 ipa（AltStore/TestFlight 渠道分发）；③ macOS ATS 放行修复；④ 前端两处 TS 类型错误修复。",
   "isForced": false,
-  "publishedAt": "2026-08-08T00:25:19.217Z",
+  "publishedAt": "2026-08-23T03:16:48.913Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.03.16",
+      "image": "ghcr.io/gntv456/pt-patronus:1.03.17",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "6378c2e61c73ec9ab422481fae959fc5db8b06062b005488a3b369d570f49cc1"
+      "sha256": "86bb86db295d5e301dee7a538bd098898332015b0930552a234d4768e9030342"
+    },
+    "ios": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": "2e5afc50f6b622fdc66b8c232da369088e0b755166b91a3f4b0bd9f3840a0b37"
+    },
+    "ohos": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": ""
     },
     "macos": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
@@ -20,15 +28,15 @@
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "741a753ba9f955a62ef5a72caab3111ad00594b5997b6b2ea9711396c46f5cca"
+      "sha256": "5aae967a5272a9a553b625073d3b32a431a325a0b7bd1a6bac448465d1c4d868"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "d192a738e5641f68070526fe5571968d0a1bdcf1c1118c649b1583dff7c36d57"
+      "sha256": "91ea1c93231fa376bf352db4bcc2fddfb006f41a0f05a5deff4111a97c87c83b"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "d6fc66d16b1af9ebb917c00ac45960efac4479aeff543d318fa1453f80bc3f18"
+      "sha256": "9c1708488a7c49e2b2d4151f57fbb982f37625aea7c944331af29fc2b5ce4b94"
     }
   }
 }
