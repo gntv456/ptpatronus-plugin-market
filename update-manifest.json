@@ -1,18 +1,18 @@
 {
-  "latestVersion": "1.03.18",
+  "latestVersion": "1.03.20",
   "minVersion": "0.60.00",
-  "releaseName": "1.03.17：iOS 打包版 + macOS ATS 放行 + TS 修复",
-  "releaseNotes": "1.03.18：CookieCloud 内置服务端（免单独部署，浏览器扩展直推+推送即同步）；修复官方扩展默认加密格式解密失败(bad pkcs7 padding)；SSH 连接错误详细诊断指引；AI 助手站点列表附带重复检测+结果截断修复；修复关闭弹窗误报全局错误；Tokyo 站复活(新域名 tokyo-manga.top)；空邀请页假成员解析修复",
+  "releaseName": "1.03.20：安全加固版 + 实时推送稳定性修复（WS 脏 cookie 阻断）+ 体验优化",
+  "releaseNotes": "1.03.20：①实时推送稳定性——修复过期 ptp_token cookie 在 ticket 校验前抢先 401 导致 WebSocket 永久连不上的缺陷（通知/H&R/Cookie 告警/实时速率曾全部静默停摆）；会话失效后 WS 停止无限重连；仪表盘「未读通知」修正为与通知中心一致（曾恒显示 0）；通知徽章支持到 999+。②体验优化——跨站搜索新增「免费」一键筛选（免费/2X/折扣）；顶栏新增实时连接状态指示（断线可见）；通知铃铛组头支持整组一键已读；一键签到增加时长提示。③安全加固（详见 CHANGELOG）——数据库控制台只读、扩展凭据加密落盘、JWT 7 天绝对寿命、Agent 安装强制 sha256 校验、CORS fail-closed 等。升级注意：若曾 clone 旧版本仓库请重新 clone（.tmp/ext-profile6 移除）；iOS 版需在 Mac 上重新打包，稍后单独更新。（网盘提取码：hxpt；iOS 新版 ipa 待 Mac 打包后更新）",
   "isForced": false,
-  "publishedAt": "2026-08-23T03:16:48.913Z",
+  "publishedAt": "2026-09-01T03:21:33.172956Z",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.03.18",
+      "image": "ghcr.io/gntv456/pt-patronus:1.03.20",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "68b4e71ee049e3a96b3d7d5502d03f760ff8591d2f12a826aba7d2c0fbe8a04f"
+      "sha256": "4ae34b821c2a6d8358826029a8529b89f12d059c95c958d56f11993194811980"
     },
     "ios": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
@@ -20,23 +20,31 @@
     },
     "ohos": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "ad531e6ecaf6a3408a6e7c7ee24128e1cb5c126812a48717088401c78b3bfae3"
-    },
-    "macos": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": ""
+      "sha256": "d377c1cd763001756bf8dab1fa80995cb8688289d76e420d4c7fa4c99ab39e9f"
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "4512ce262346ded12c292e2c786c16fc0e6df7009cdb90e125b35dae34c10d9d"
+      "sha256": "c905d013ae5be99418c43e23345723b6a7527d6c4f60a0243c45293f2be86e62"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "538fac66eb8393450e5dd0686d06bf0326048d3de01143ec16289d99f6191567"
+      "sha256": "ac72b4eb674a70adf6ae591cdf2c782e9c215c3d43195bf97d0278e241f8ca94"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "dbfecec909245df45f22bb0b5efc7aeda37dc7d15b615d8a1cf1f7bf4ad57cbc"
+      "sha256": "01c62e890a9e2353ee2db420d299fbb29df2a51bf3aa33e9d8b07755b2e4f236"
+    },
+    "extension": {
+      "sha256": "9eed509444dee145dbde637553f7f22095dfeb4daf41fb28f2db2d32f6d9d3b2"
+    },
+    "macos": {},
+    "server-linux-amd64": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": "0a7fea0a6e1e8075a43f52eb04f4232e21dd5bebab5e52ab0bb54d6a6bc0bf57"
+    },
+    "server-linux-arm64": {
+      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "sha256": "e5c7c546bc06e409803cff46c9fcdb6bfde43d1b87cc9e444376c8b9c7dfec35"
     }
   }
 }
