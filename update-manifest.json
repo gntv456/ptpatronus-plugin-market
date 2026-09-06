@@ -1,18 +1,18 @@
 {
-  "latestVersion": "1.03.20",
+  "latestVersion": "1.03.21",
   "minVersion": "0.60.00",
-  "releaseName": "1.03.20：安全加固版 + 实时推送稳定性修复（WS 脏 cookie 阻断）+ 体验优化",
-  "releaseNotes": "1.03.20：①实时推送稳定性——修复过期 ptp_token cookie 在 ticket 校验前抢先 401 导致 WebSocket 永久连不上的缺陷（通知/H&R/Cookie 告警/实时速率曾全部静默停摆）；会话失效后 WS 停止无限重连；仪表盘「未读通知」修正为与通知中心一致（曾恒显示 0）；通知徽章支持到 999+。②体验优化——跨站搜索新增「免费」一键筛选（免费/2X/折扣）；顶栏新增实时连接状态指示（断线可见）；通知铃铛组头支持整组一键已读；一键签到增加时长提示。③安全加固（详见 CHANGELOG）——数据库控制台只读、扩展凭据加密落盘、JWT 7 天绝对寿命、Agent 安装强制 sha256 校验、CORS fail-closed 等。升级注意：若曾 clone 旧版本仓库请重新 clone（.tmp/ext-profile6 移除）；iOS 版需在 Mac 上重新打包，稍后单独更新。（网盘提取码：hxpt；iOS 新版 ipa 待 Mac 打包后更新）",
+  "releaseName": "站点数据大修 + 蓝影论坛适配版",
+  "releaseNotes": "1.03.21：①站点数据大修（参照 PT-depiler 校准）——青蛙(蝌蚪)/下水道(金币)/唐门(星焱)/财神(金元宝)/PT分享站/SpringSunday/ZRPT/ilolicon 等 8 站货币改名导致魔力恒 0 逐站修复；新增 NexusPHP 框架级兜底（color_bonus+[使用] 锚，与货币名无关）与 userdetails 统计行自动合并，后续站点货币再改名也大概率自动兼容。②新功能——蓝影论坛（hdblue.cc 改版版）接入娱乐中心：五子棋人机对战（内置 AI 自动弈完，免费局 +20 影币）+ 阴阳契对赌（智能应战/挂单）；守护神名片：各站聚合数据定时推送到好学论坛名片。③修复——PT监护室详情缓存污染/并发竞争/跨年站庆空窗/站名误命中。升级注意：蓝影 session 绑定登录 IP，换网络需重新导出 cookie；掉线站（PlayLet/SoulVoice/Sunny/慕雪阁/海胆/财神）请更新 cookie 后刷新数据。（网盘提取码：hxpt；iOS 版需 Mac 打包稍后单独更新）",
   "isForced": false,
-  "publishedAt": "2026-09-01T03:21:33.172956Z",
+  "publishedAt": "2026-09-06T13:30:00+08:00",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.03.20",
+      "image": "ghcr.io/gntv456/pt-patronus:1.03.21",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "4ae34b821c2a6d8358826029a8529b89f12d059c95c958d56f11993194811980"
+      "sha256": "fc40c6c2241ad7ed294d224d79c28a634ae468d3c2e770a5dc647455b7ab81b0"
     },
     "ios": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
@@ -20,19 +20,19 @@
     },
     "ohos": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "d377c1cd763001756bf8dab1fa80995cb8688289d76e420d4c7fa4c99ab39e9f"
+      "sha256": "e7e08de7f073692878ad3fd3e44befa20c53ba540eab3871438da380c60275e3"
     },
     "windows": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "c905d013ae5be99418c43e23345723b6a7527d6c4f60a0243c45293f2be86e62"
+      "sha256": "5888d3cea0d31220cebc5f332b4006aacae073f74bc79ee60bdcf9201bfec3b0"
     },
     "agent-linux-amd64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "ac72b4eb674a70adf6ae591cdf2c782e9c215c3d43195bf97d0278e241f8ca94"
+      "sha256": "8191e9ec226b24db452f7df46a71fa3c0f161739a8fd26680aecbf0f700c7c09"
     },
     "agent-linux-arm64": {
       "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "01c62e890a9e2353ee2db420d299fbb29df2a51bf3aa33e9d8b07755b2e4f236"
+      "sha256": "d93ede76dcda6aa72c9062c6081ebadc89543270ebda27348e15e3f25b9bd345"
     },
     "extension": {
       "sha256": "c3578fede15a8ee32ba59abdc6d841ecc2e67cf4a7e2274534cc9a5ca13363b2"
