@@ -1,49 +1,49 @@
 {
-  "latestVersion": "1.03.21",
+  "latestVersion": "1.03.23",
   "minVersion": "0.60.00",
-  "releaseName": "站点数据大修 + 蓝影论坛适配版",
-  "releaseNotes": "1.03.21：①站点数据大修（参照 PT-depiler 校准）——青蛙(蝌蚪)/下水道(金币)/唐门(星焱)/财神(金元宝)/PT分享站/SpringSunday/ZRPT/ilolicon 等 8 站货币改名导致魔力恒 0 逐站修复；新增 NexusPHP 框架级兜底（color_bonus+[使用] 锚，与货币名无关）与 userdetails 统计行自动合并，后续站点货币再改名也大概率自动兼容。②新功能——蓝影论坛（hdblue.cc 改版版）接入娱乐中心：五子棋人机对战（内置 AI 自动弈完，免费局 +20 影币）+ 阴阳契对赌（智能应战/挂单）；守护神名片：各站聚合数据定时推送到好学论坛名片。③修复——PT监护室详情缓存污染/并发竞争/跨年站庆空窗/站名误命中。升级注意：蓝影 session 绑定登录 IP，换网络需重新导出 cookie；掉线站（PlayLet/SoulVoice/Sunny/慕雪阁/海胆/财神）请更新 cookie 后刷新数据。（网盘提取码：hxpt；iOS 版需 Mac 打包稍后单独更新）",
+  "releaseName": "全链路深度审计加固版",
+  "releaseNotes": "1.03.23：新增 FluxTorrent 建站系统适配（schema: fluxtorrent）。①站点适配——搜索走 /compat/nexusphp/torrents.json（NP 字段口径，促销档位映射为免费/半价/双倍双因子）；用户信息走 ptppUserInfo 聚合端点；下载走 download.php?id=&passkey=（NexusPHP 同形）。②凭据体验——鉴权用 API Token（fxo_，网页端「我的 → API Token」签发，180 天可续期；注意 Authorization 头前缀为 Token 非 Bearer）；passkey 无需手填，首次用户信息抓取自动从站点获取并加密回写。③能力端点——H&R 违约列表（/open/me/hr，时长缺口换算人类可读）、做种明细（/open/me/seeding，保种契约逐条聚合）、站内信只读（/open/me/messages）；三项默认放行，站点 YAML 显式 enabled:false 可关。④接入方式——添加站点时定义选「FluxTorrent」、地址填站点域名、API Key 粘贴 Token 即可（建站系统域名各异，全站共用一个模板）。",
   "isForced": false,
-  "publishedAt": "2026-09-06T13:30:00+08:00",
+  "publishedAt": "2026-10-04T16:00:00+08:00",
   "targets": {
     "docker": {
-      "image": "ghcr.io/gntv456/pt-patronus:1.03.21",
+      "image": "ghcr.io/gntv456/pt-patronus:1.03.23",
       "instructions": "docker compose pull && docker compose up -d"
     },
     "android": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "fc40c6c2241ad7ed294d224d79c28a634ae468d3c2e770a5dc647455b7ab81b0"
+      "url": "",
+      "sha256": "8b9772356becc903fda01e10ea18603a04d212f660c824d3f100b27b1e3a1a82"
     },
     "ios": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "url": "",
       "sha256": "d6fccabc099f0a5477566fe0fe18cfb66be7cab63e3f589775ac49472b34d800"
     },
     "ohos": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "url": "",
       "sha256": "e7e08de7f073692878ad3fd3e44befa20c53ba540eab3871438da380c60275e3"
     },
     "windows": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "5888d3cea0d31220cebc5f332b4006aacae073f74bc79ee60bdcf9201bfec3b0"
+      "url": "",
+      "sha256": "9dc24f42bc8cac5dab0978c0588ce1487a70f4149afa5d312a52c4412c59bc01"
     },
     "agent-linux-amd64": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "8191e9ec226b24db452f7df46a71fa3c0f161739a8fd26680aecbf0f700c7c09"
+      "url": "",
+      "sha256": "3c98df8a2bbc7bdb6993f0ad0cb4c96684f9cdd1323346274e30a2cfbf6c261e"
     },
     "agent-linux-arm64": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
-      "sha256": "d93ede76dcda6aa72c9062c6081ebadc89543270ebda27348e15e3f25b9bd345"
+      "url": "",
+      "sha256": "6886e525e9206b9ba85865d0098c24ed55b62f695ef8a330b06be29e333364f0"
     },
     "extension": {
       "sha256": "c3578fede15a8ee32ba59abdc6d841ecc2e67cf4a7e2274534cc9a5ca13363b2"
     },
     "macos": {},
     "server-linux-amd64": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "url": "",
       "sha256": "0a7fea0a6e1e8075a43f52eb04f4232e21dd5bebab5e52ab0bb54d6a6bc0bf57"
     },
     "server-linux-arm64": {
-      "url": "https://wwazg.lanzoub.com/b03anmtyxg",
+      "url": "",
       "sha256": "e5c7c546bc06e409803cff46c9fcdb6bfde43d1b87cc9e444376c8b9c7dfec35"
     }
   }
